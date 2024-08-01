@@ -5,7 +5,8 @@ export default {
     fontFamily: {
      "Satohi": ['Satoshi', "sans-serif"],
     },
-    extend: {},
+    extend: {
+    },
   },
   plugins: [],
 };
