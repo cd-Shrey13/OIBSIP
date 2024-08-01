@@ -27,11 +27,12 @@ function MenuSlider() {
     return (
         <>
             <div className="flex w-full items-center justify-start gap-2 overflow-x-scroll snap-x no-scrollbar ">
-                {menu_list.map((items) => {
+                {menu_list.map((items,index) => {
                     return (
                         <SliderCard
                             cardImage={items.menu_image}
                             cardImageName={items.menu_name}
+                            key={index}
                         />
                     )
                 })}
@@ -40,10 +41,10 @@ function MenuSlider() {
     )
 }
 
-function SliderCard({ cardImage, cardImageName }) {
+function SliderCard({ cardImage, cardImageName}) {
     return (
         <>
-            <div class="flex h-[11rem] flex-shrink-0 transform flex-col items-center justify-between rounded-xl bg-white p-2 shadow-lg transition-all duration-300 hover:shadow-2xl snap-start lg:h-[17rem]">
+            <div className="flex h-[11rem] flex-shrink-0 transform flex-col items-center justify-between rounded-xl bg-white p-2 shadow-lg transition-all duration-300 hover:shadow-2xl snap-start lg:h-[17rem]">
                 <span className="">
                     <img
                         src={cardImage}

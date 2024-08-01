@@ -2,20 +2,20 @@ import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 function Navbar() {
     return (
-        <header className="h-[6rem] w-full border-solid font-Satohi font-[900]">
+        <header className="h-[6rem] w-full border-solid font-Satohi font-[900] mt-4">
             <nav className="flex h-full w-full items-center justify-between sm:justify-between">
                 <span className="flex w-[40%] items-center justify-start sm:w-[33%]">
                     <img src={assets.logo} alt="" className="p-2" />
                 </span>
                 <span className="hidden h-full items-center justify-center md:flex md:w-[33%]">
                     <ul className="flex h-full w-full items-center justify-evenly gap-4 px-4">
-                        <li className="shrink-0 border-b-2 border-transparent px-1 pb-4 pt-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        <li className="shrink-0 border-b-2 border-transparent px-1  py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
                             Home
                         </li>
-                        <li className="shrink-0 border-b-2 border-transparent px-1 pb-4 pt-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        <li className="shrink-0 border-b-2 border-transparent px-1  py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
                             Menu
                         </li>
-                        <li className="shrink-0 border-b-2 border-transparent px-1 pb-4 pt-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                        <li className="shrink-0 border-b-2 border-transparent px-1  py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
                             Contact Us
                         </li>
                     </ul>
