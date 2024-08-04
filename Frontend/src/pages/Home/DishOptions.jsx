@@ -1,14 +1,13 @@
 import React from 'react'
 // import { menu_list } from '../../assets/assets'
 import { food_list } from '../../assets/assets'
+import H1 from '../../components/H1'
 
 function DishOptions() {
     return (
         <section className="flex w-full items-center justify-center px-4 font-Satohi">
-            <div className="flex w-full flex-col items-start justify-between p-4 gap-4 rounded-[12px] md:gap-4">
-                <h1 className="text-[1.9rem] font-[900] leading-8 text-black sm:text-[3rem] sm:leading-[3rem] md:text-[4rem] md:leading-[4.4rem]">
-                    Best dishes near you
-                </h1>
+            <div className="flex w-full flex-col items-start justify-between gap-4 rounded-[12px] p-4 md:gap-4">
+                <H1 className={'text-black'}>Best dishes near you</H1>
 
                 <DishSlider />
             </div>

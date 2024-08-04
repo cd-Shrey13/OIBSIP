@@ -33,4 +33,20 @@ body {
         background-size: cover;
         background-position: center;
     }
+
+    .download_image_playstore{
+        background-image: url('./src//assets/google-play-badge.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center; 
+        cursor: pointer;
+    }
+
+    .download_image_ios{
+        background-image: url('./src//assets/download-on-the-app-store.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center; 
+        cursor: pointer;
+    }
 }

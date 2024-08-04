@@ -1,49 +1,61 @@
-import React, { useState } from 'react'
-import { assets } from '../assets/assets'
+import Button from './Button'
+import BrandLogo from './BrandLogo'
+
 function Navbar() {
     return (
-        <header className="h-[6rem] w-full border-solid font-Satohi font-[900] mt-4">
+        <header className="h-[6rem] w-full border-solid font-Satohi font-[900] px-2">
             <nav className="flex h-full w-full items-center justify-between sm:justify-between">
-                <span className="flex w-[40%] items-center justify-start sm:w-[33%]">
-                    <img src={assets.logo} alt="" className="p-2" />
-                </span>
-                <span className="hidden h-full items-center justify-center md:flex md:w-[33%]">
-                    <ul className="flex h-full w-full items-center justify-evenly gap-4 px-4">
-                        <li className="shrink-0 border-b-2 border-transparent px-1  py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                            Home
-                        </li>
-                        <li className="shrink-0 border-b-2 border-transparent px-1  py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                            Menu
-                        </li>
-                        <li className="shrink-0 border-b-2 border-transparent px-1  py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
-                            Contact Us
-                        </li>
-                    </ul>
-                </span>
-                <span className="flex h-full w-[60%] items-center justify-end sm:w-[33%]">
-                    <ul className="flex h-full items-center justify-center gap-4 pr-2 sm:w-full sm:justify-end">
-                        <li className="flex justify-center">
-                            <button type="button">
-                                <SearchIcon />
-                            </button>
-                        </li>
-                        <li className="flex justify-center">
-                            <button type="button">
-                                <CartIcon />
-                            </button>
-                        </li>
-                        <li className="flex justify-center">
-                            <button
-                                type="button"
-                                className="font-lg inline-block text-nowrap rounded border border-orange-600 bg-orange-600 px-4 py-1 text-lg text-white hover:bg-transparent hover:text-orange-600 focus:outline-none focus:ring active:text-orange-500"
-                            >
-                                Sign In
-                            </button>
-                        </li>
-                    </ul>
-                </span>
+                <BrandLogo className={'w-[40%] justify-start sm:w-[33%]'} />
+                <NavbarMiddleList />
+                <NavbarRightsideList />
             </nav>
         </header>
+    )
+}
+
+function NavbarMiddleList() {
+    return (
+        <span className="hidden h-full items-center justify-center md:flex md:w-[33%]">
+            <ul className="flex h-full w-full items-center justify-evenly gap-4 px-4">
+                <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    Home
+                </li>
+                <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    Menu
+                </li>
+                <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                    Contact Us
+                </li>
+            </ul>
+        </span>
+    )
+}
+
+function NavbarRightsideList() {
+    return (
+        <span className="flex h-full w-[60%] items-center justify-end sm:w-[33%]">
+            <ul className="flex h-full items-center justify-center gap-4 pr-2 sm:w-full sm:justify-end">
+                <li className="flex justify-center">
+                    <button type="button">
+                        <SearchIcon />
+                    </button>
+                </li>
+                <li className="flex justify-center">
+                    <button type="button">
+                        <CartIcon />
+                    </button>
+                </li>
+                <li className="flex justify-center">
+                    <Button
+                        className={
+                            'border-orange-600 bg-orange-600 hover:text-orange-600 active:text-orange-500'
+                        }
+                    >
+                        Sign In
+                    </Button>
+                </li>
+            </ul>
+        </span>
     )
 }
 
