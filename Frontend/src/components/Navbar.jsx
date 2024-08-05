@@ -1,9 +1,11 @@
 import Button from './Button'
 import BrandLogo from './BrandLogo'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../Contexts/context'
 
 function Navbar() {
     return (
-        <header className="h-[6rem] w-full border-solid font-Satohi font-[900] px-2">
+        <header className="h-[6rem] w-full border-solid px-2 font-Satohi font-[900]">
             <nav className="flex h-full w-full items-center justify-between sm:justify-between">
                 <BrandLogo className={'w-[40%] justify-start sm:w-[33%]'} />
                 <NavbarMiddleList />
@@ -32,6 +34,8 @@ function NavbarMiddleList() {
 }
 
 function NavbarRightsideList() {
+    const { isLoggedIn, login, logout } = useAuth();
+
     return (
         <span className="flex h-full w-[60%] items-center justify-end sm:w-[33%]">
             <ul className="flex h-full items-center justify-center gap-4 pr-2 sm:w-full sm:justify-end">
@@ -46,13 +50,27 @@ function NavbarRightsideList() {
                     </button>
                 </li>
                 <li className="flex justify-center">
-                    <Button
-                        className={
-                            'border-orange-600 bg-orange-600 hover:text-orange-600 active:text-orange-500'
-                        }
-                    >
-                        Sign In
-                    </Button>
+                    {isLoggedIn ? (
+                        <Link to="/signout">
+                            <Button
+                                className={
+                                    'border-orange-600 bg-orange-600 hover:text-orange-600 active:text-orange-500'
+                                }
+                            >
+                                Sign Out
+                            </Button>
+                        </Link>
+                    ) : (
+                        <Link to="/signin">
+                            <Button
+                                className={
+                                    'border-orange-600 bg-orange-600 hover:text-orange-600 active:text-orange-500'
+                                }
+                            >
+                                Sign In
+                            </Button>
+                        </Link>
+                    )}
                 </li>
             </ul>
         </span>

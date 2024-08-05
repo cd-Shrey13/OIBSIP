@@ -1,7 +1,8 @@
-import express from "express"
+import express from "express";
 import mongoose from "mongoose";
-import  model from "./Models/user.model.js";
+import model from "./Models/user.model.js";
 import cors from "cors";
+import bcrypt from "bcrypt";
 
 const User = model;
 
@@ -25,17 +26,19 @@ app.use(cors());
 
 app.post("/signup", async (req, res) => {
   try {
-    const user = await User.create({
+    const password = req.body.password;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.create({
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
     });
-    res.status(402).json({
+    res.status(200).json({
       msg: "User created successfully!",
     });
   } catch (error) {
-    res.status(403).json({
+    res.status(404).json({
       msg: "User not created!",
     });
   }
@@ -43,21 +46,26 @@ app.post("/signup", async (req, res) => {
 
 app.post("/signin", async (req, res) => {
   try {
+    const { email, password } = req.body;
+
     const user = await User.findOne({
-      email: req.body.email,
-      password: req.body.password,
+      email: email,
     });
-    if (user) {
-      res.status(403).json({
-        msg: "User found!",
-      });
-    } else {
-      res.status(403).json({
-        msg: "User not found!",
+
+    const isValidPassword = await bcrypt.compare(password, user.password);
+
+    if (!isValidPassword) {
+      res.status(401).json({
+        msg: "Enter valid credentials",
       });
     }
+
+    res.status(200).json({
+      msg: "User found!",
+    });
   } catch (error) {
     console.log(error);
+
     res.status(403).json({
       msg: "You fucked up",
     });

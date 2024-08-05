@@ -1,15 +1,44 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import Navbar from './components/Navbar'
 import Home from './pages/Home/Home'
-import Footer from './components/Footer'
 import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import { AuthProvider } from './Contexts/context'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <Login />
-        <Navbar />
-        <Home />
-        <Footer />
-    </React.StrictMode>
+    <BrowserRouter>
+        <React.StrictMode>
+            <AuthProvider>
+                <Navbar />
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <Suspense fallback={'loading...'}>
+                                <Home />
+                            </Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="/signup"
+                        element={
+                            <Suspense fallback={'loading...'}>
+                                <SignUp />
+                            </Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="/signin"
+                        element={
+                            <Suspense fallback={'loading...'}>
+                                <Login />
+                            </Suspense>
+                        }
+                    ></Route>
+                </Routes>
+            </AuthProvider>
+        </React.StrictMode>
+    </BrowserRouter>
 )

@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import Button from '../components/Button'
-const axios = require('axios')
+import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../Contexts/context'
 
 function Login() {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     })
+
+    const { isLoggedIn, login, logout } = useAuth()
 
     // Handle input changes
     const handleEmailChange = (event) => {
@@ -30,11 +35,14 @@ function Login() {
     }
 
     async function handleOnClick() {
-        console.log(formData);
+        console.log(formData)
         axios
             .post('http://localhost:3000/signin', formData)
-            .then((response) => console.log(response.data))
-            .catch((err) => console.log(err))
+            .then(() => {
+                navigate('/');
+                login();
+            })
+            .catch((err) => console.log('err'))
     }
 
     return (
@@ -140,9 +148,7 @@ function Login() {
 
                     <p className="text-center text-sm text-gray-500">
                         No account?
-                        <a className="underline" href="#">
-                            Sign up
-                        </a>
+                        <Link to={'/signup'}>Sign up</Link>
                     </p>
                 </form>
             </div>
