@@ -3,6 +3,7 @@ import Button from '../components/Button'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../Contexts/context'
+import H1 from '../components/H1'
 
 function Login() {
     const navigate = useNavigate()
@@ -39,27 +40,20 @@ function Login() {
         axios
             .post('http://localhost:3000/signin', formData)
             .then(() => {
-                navigate('/');
-                login();
+                navigate('/')
+                login()
             })
             .catch((err) => console.log('err'))
     }
 
     return (
-        <div className="absolute z-[999] mx-auto flex h-[100vh] w-[100vw] max-w-screen-xl items-start justify-center bg-white px-4 py-16 sm:px-6 lg:px-8">
+        <div className="absolute z-[999999] flex h-[100vh] w-[100vw] items-center justify-center bg-white px-4 py-16 sm:px-6 lg:px-8">
             <div className="max-w-lgp-2 mx-auto">
-                <h1 className="text-center text-2xl font-bold text-orange-600 sm:text-3xl">
-                    Get started today
-                </h1>
-
-                <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Obcaecati sunt dolores deleniti inventore quaerat mollitia?
-                </p>
+                <H1 className={'mb-[4rem] text-black'}>Get started today</H1>
 
                 <form
                     action="#"
-                    className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-[0px_0px_80px_15px_rgba(0,0,0,0.3)] sm:p-6 lg:p-8"
+                    className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
                 >
                     <p className="text-center text-lg font-medium">
                         Sign in to your account
@@ -139,7 +133,7 @@ function Login() {
 
                     <Button
                         className={
-                            'border-orange-600 bg-orange-600 hover:text-orange-600 active:text-orange-500'
+                            'border-green-600 bg-green-600 text-white shadow-lg hover:bg-green-800 active:text-green-500 lg:px-[24px] lg:py-[8px]'
                         }
                         onClickHandler={handleOnClick}
                     >
@@ -148,7 +142,9 @@ function Login() {
 
                     <p className="text-center text-sm text-gray-500">
                         No account?
-                        <Link to={'/signup'}>Sign up</Link>
+                        <Link to={'/signup'}>
+                            <p className="inline-block underline">Sign up</p>
+                        </Link>
                     </p>
                 </form>
             </div>

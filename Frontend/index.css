@@ -17,6 +17,13 @@ body {
 }
 
 @layer utilities {
+    :root {
+        --color-golden: rgb(249 210 100);
+        --color-purple: rgb(93 60 148);
+        --color-lime: rgb(233 238 184);
+        --color-brown: rgb(96 28 14);
+        /* ... */
+      }
     /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
         display: none;
@@ -28,7 +35,7 @@ body {
     }
 
     .hero_img {
-        background-image: url('./src/assets/header_img.png');
+        background-image: url('./src/assets/heroImage.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;

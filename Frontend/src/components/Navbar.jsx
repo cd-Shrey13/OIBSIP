@@ -5,9 +5,9 @@ import { useAuth } from '../Contexts/context'
 
 function Navbar() {
     return (
-        <header className="h-[6rem] w-full border-solid px-2 font-Satohi font-[900]">
-            <nav className="flex h-full w-full items-center justify-between sm:justify-between">
-                <BrandLogo className={'w-[40%] justify-start sm:w-[33%]'} />
+        <header className=" fixed h-[6rem] w-full border-solid px-2 font-Satohi font-[900] bg-[#181818] z-[9999]">
+            <nav className="flex h-full w-full items-center justify-between sm:justify-between px-2">
+                <BrandLogo className={'w-[40%] justify-start sm:w-[33%] ml-2'} />
                 <NavbarMiddleList />
                 <NavbarRightsideList />
             </nav>
@@ -19,13 +19,13 @@ function NavbarMiddleList() {
     return (
         <span className="hidden h-full items-center justify-center md:flex md:w-[33%]">
             <ul className="flex h-full w-full items-center justify-evenly gap-4 px-4">
-                <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-[var(--color-golden)] hover:border-[var(--color-lime)] hover:text-[var(--color-lime)]">
                     Home
                 </li>
-                <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-[var(--color-golden)] hover:border-[var(--color-lime)] hover:text-[var(--color-lime)]">
                     Menu
                 </li>
-                <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-[var(--color-golden)] hover:border-[var(--color-lime)] hover:text-[var(--color-lime)]">
                     Contact Us
                 </li>
             </ul>
@@ -54,7 +54,7 @@ function NavbarRightsideList() {
                         <Link to="/signout">
                             <Button
                                 className={
-                                    'border-orange-600 bg-orange-600 hover:text-orange-600 active:text-orange-500'
+                                    'border-green-600 bg-green-600 hover:bg-green-800 text-white active:text-ogreen500 lg:px-[24px] lg:py-[8px] shadow-lg'
                                 }
                             >
                                 Sign Out
@@ -64,7 +64,7 @@ function NavbarRightsideList() {
                         <Link to="/signin">
                             <Button
                                 className={
-                                    'border-orange-600 bg-orange-600 hover:text-orange-600 active:text-orange-500'
+                                    'border-green-600 bg-green-600 hover:bg-green-800 text-white  active:text-green-500 lg:px-[24px] lg:py-[8px] shadow-lg'
                                 }
                             >
                                 Sign In
@@ -83,8 +83,8 @@ function SearchIcon() {
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill="currentColor"
-                className="size-6 sm:size-10"
+                fill="rgb(93 60 148)"
+                className=" hidden sm:flex size-8 sm:size-10 shadow-lg p-2 bg-white rounded-md hover:-translate-y-[2px] transition-all"
             >
                 <path
                     fillRule="evenodd"
@@ -102,8 +102,9 @@ function CartIcon() {
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill="currentColor"
-                className="size-6 sm:size-10"
+                fill="rgb(93 60 148)"
+                className="size-8 sm:size-10 shadow-lg p-2 bg-white rounded-md hover:-translate-y-[2px] transition-all"
+                
             >
                 <path
                     fillRule="evenodd"

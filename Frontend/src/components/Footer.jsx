@@ -3,7 +3,7 @@ import { assets } from '../../src/assets/assets'
 import BrandLogo from './BrandLogo'
 function Footer() {
     return (
-        <section className="w-full bg-stone-900 p-4 text-white">
+        <section className="w-full bg-[#121212] p-4 text-white">
             <div className="mb-4 flex flex-col items-start justify-center gap-4 lg:flex-row lg:justify-start lg:gap-[10rem] lg:px-12">
                 <span className="flex flex-col items-start justify-center gap-4">
                     <BrandLogo/>
@@ -75,7 +75,7 @@ function Footer() {
             <footer className="mb-2 mt-3 flex items-center justify-center">
                 <h3>
                     <a href="#" className="hover:decoration-gray-200">
-                        Copyright 2024© Tomato.com - All rights reserved.
+                        Copyright 2024© QuickBite.com - All rights reserved.
                     </a>{' '}
                 </h3>
             </footer>

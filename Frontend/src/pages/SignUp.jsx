@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Button from '../components/Button'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import H1 from '../components/H1'
+
 
 function SignUp() {
     const navigate = useNavigate()
@@ -21,16 +23,9 @@ function SignUp() {
     }
 
     return (
-        <div className="absolute z-[999] mx-auto flex h-[100vh] w-[100vw] max-w-screen-xl items-start justify-center bg-white px-4 py-16 sm:px-6 lg:px-8">
+        <div className="absolute z-[999999999] flex h-[100vh] w-[100vw] items-center justify-center bg-white px-4 py-16 sm:px-6 lg:px-8">
             <div className="max-w-lgp-2 mx-auto">
-                <h1 className="text-center text-2xl font-bold text-orange-600 sm:text-3xl">
-                    Get started today
-                </h1>
-
-                <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Obcaecati sunt dolores deleniti inventore quaerat mollitia?
-                </p>
+                <H1 className={'mb-[4rem] text-black'}>Get started today</H1>
 
                 <form
                     action="#"
@@ -122,7 +117,7 @@ function SignUp() {
 
                     <Button
                         className={
-                            'border-orange-600 bg-orange-600 hover:text-orange-600 active:text-orange-500'
+                            'border-green-600 bg-green-600 text-white shadow-lg hover:bg-green-800 active:text-green-500 lg:px-[24px] lg:py-[8px]'
                         }
                         onClickHandler={handleOnClick}
                     >
