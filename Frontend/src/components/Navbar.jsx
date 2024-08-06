@@ -1,13 +1,15 @@
 import Button from './Button'
 import BrandLogo from './BrandLogo'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../Contexts/context'
+import { useAuth, useCart } from '../Contexts/context'
 
 function Navbar() {
     return (
-        <header className=" fixed h-[6rem] w-full border-solid px-2 font-Satohi font-[900] bg-[#181818] z-[9999]">
-            <nav className="flex h-full w-full items-center justify-between sm:justify-between px-2">
-                <BrandLogo className={'w-[40%] justify-start sm:w-[33%] ml-2'} />
+        <header className="fixed z-[9999] h-[6rem] w-full border-solid bg-[#181818] px-2 font-Satohi font-[900]">
+            <nav className="flex h-full w-full items-center justify-between px-2 sm:justify-between">
+                <BrandLogo
+                    className={'ml-2 w-[40%] justify-start sm:w-[33%]'}
+                />
                 <NavbarMiddleList />
                 <NavbarRightsideList />
             </nav>
@@ -34,7 +36,7 @@ function NavbarMiddleList() {
 }
 
 function NavbarRightsideList() {
-    const { isLoggedIn, login, logout } = useAuth();
+    const { isLoggedIn, login, logout } = useAuth()
 
     return (
         <span className="flex h-full w-[60%] items-center justify-end sm:w-[33%]">
@@ -54,7 +56,7 @@ function NavbarRightsideList() {
                         <Link to="/signout">
                             <Button
                                 className={
-                                    'border-green-600 bg-green-600 hover:bg-green-800 text-white active:text-ogreen500 lg:px-[24px] lg:py-[8px] shadow-lg'
+                                    'active:text-ogreen500 border-green-600 bg-green-600 text-white shadow-lg hover:bg-green-800 lg:px-[24px] lg:py-[8px]'
                                 }
                             >
                                 Sign Out
@@ -64,7 +66,7 @@ function NavbarRightsideList() {
                         <Link to="/signin">
                             <Button
                                 className={
-                                    'border-green-600 bg-green-600 hover:bg-green-800 text-white  active:text-green-500 lg:px-[24px] lg:py-[8px] shadow-lg'
+                                    'border-green-600 bg-green-600 text-white shadow-lg hover:bg-green-800 active:text-green-500 lg:px-[24px] lg:py-[8px]'
                                 }
                             >
                                 Sign In
@@ -79,12 +81,13 @@ function NavbarRightsideList() {
 
 function SearchIcon() {
     return (
-        <>
+        <span  title="Search Items">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="rgb(93 60 148)"
-                className=" hidden sm:flex size-8 sm:size-10 shadow-lg p-2 bg-white rounded-md hover:-translate-y-[2px] transition-all"
+                className="hidden size-8 rounded-md bg-white p-2 shadow-lg transition-all hover:-translate-y-[2px] sm:flex sm:size-10"
+                
             >
                 <path
                     fillRule="evenodd"
@@ -92,26 +95,45 @@ function SearchIcon() {
                     clipRule="evenodd"
                 />
             </svg>
-        </>
+        </span>
     )
 }
 
 function CartIcon() {
+    const { cartItems } = useCart()
+    const NumberOfItemsInCart = cartItems.length
+
     return (
         <>
+        {NumberOfItemsInCart ? (
+            <span className="absolute right-[8.7rem] top-[20px] z-[9999999999] flex h-[18px] w-[18px] items-center justify-center rounded-full bg-red-600">
+                <p className="p-1 text-[.8rem] font-[900] text-white">
+                    {NumberOfItemsInCart}
+                </p>
+            </span>
+        ) : (
+            <></>
+        )}
+        <span
+            onClick={() => console.log(NumberOfItemsInCart)}
+            className="flex items-center justify-center rounded-md bg-white shadow-lg transition-all hover:-translate-y-[2px] sm:size-10"  title="View Cart"
+        >
+            
             <svg
                 xmlns="http://www.w3.org/2000/svg"
+                fill="none"
                 viewBox="0 0 24 24"
-                fill="rgb(93 60 148)"
-                className="size-8 sm:size-10 shadow-lg p-2 bg-white rounded-md hover:-translate-y-[2px] transition-all"
-                
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6 "
             >
                 <path
-                    fillRule="evenodd"
-                    d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 0 0 4.25 22.5h15.5a1.875 1.875 0 0 0 1.865-2.071l-1.263-12a1.875 1.875 0 0 0-1.865-1.679H16.5V6a4.5 4.5 0 1 0-9 0ZM12 3a3 3 0 0 0-3 3v.75h6V6a3 3 0 0 0-3-3Zm-3 8.25a3 3 0 1 0 6 0v-.75a.75.75 0 0 1 1.5 0v.75a4.5 4.5 0 1 1-9 0v-.75a.75.75 0 0 1 1.5 0v.75Z"
-                    clipRule="evenodd"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
                 />
             </svg>
+        </span>
         </>
     )
 }

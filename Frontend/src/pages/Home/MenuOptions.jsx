@@ -27,7 +27,7 @@ function MenuOptions() {
 function MenuSlider() {
     return (
         <>
-            <div className="no-scrollbar flex w-full snap-x items-center justify-start gap-2 overflow-x-scroll p-2 shadow-inner">
+            <div className="no-scrollbar flex w-full snap-x items-center justify-start gap-2 overflow-x-scroll p-2 shadow-inner"  title="View Category">
                 {menu_list.map((items, index) => {
                     return (
                         <SliderCard
