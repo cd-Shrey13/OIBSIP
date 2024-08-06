@@ -35,9 +35,9 @@ export function CartProvider({ children }) {
         return amount;
     }, [cartItems])
 
-    const addItemToCart = (item) => setCartItems((prev) => [...prev, item])
-    const removeItemFromCart = (filterItem) =>
-        setCartItems((prev) => prev.filter((item) => item !== filterItem))
+    const addItemToCart = (item) => setCartItems((prev) => [...prev, item]);
+    const removeItemFromCart = (filterItemId) =>
+        setCartItems((prev) => prev.filter((item) => item._id !== filterItemId));
 
     return (
         <CartContext.Provider

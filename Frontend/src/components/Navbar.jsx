@@ -7,9 +7,9 @@ function Navbar() {
     return (
         <header className="fixed z-[9999] h-[6rem] w-full border-solid bg-[#181818] px-2 font-Satohi font-[900]">
             <nav className="flex h-full w-full items-center justify-between px-2 sm:justify-between">
-                <BrandLogo
-                    className={'ml-2 w-[40%] justify-start sm:w-[33%]'}
-                />
+                <Link to="/" className={'ml-2 w-[40%] sm:w-[33%]'}>
+                    <BrandLogo className={'ml-2 w-[100%] justify-start'} />
+                </Link>
                 <NavbarMiddleList />
                 <NavbarRightsideList />
             </nav>
@@ -22,13 +22,18 @@ function NavbarMiddleList() {
         <span className="hidden h-full items-center justify-center md:flex md:w-[33%]">
             <ul className="flex h-full w-full items-center justify-evenly gap-4 px-4">
                 <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-[var(--color-golden)] hover:border-[var(--color-lime)] hover:text-[var(--color-lime)]">
-                    Home
+                    <Link
+                        to="/"
+                        className={'ml-2 w-[40%] justify-start sm:w-[33%]'}
+                    >
+                        Home
+                    </Link>
                 </li>
                 <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-[var(--color-golden)] hover:border-[var(--color-lime)] hover:text-[var(--color-lime)]">
-                    Menu
+                    <a href="#menu">Menu</a>
                 </li>
                 <li className="shrink-0 border-b-2 border-transparent px-1 py-2 text-xl font-medium text-[var(--color-golden)] hover:border-[var(--color-lime)] hover:text-[var(--color-lime)]">
-                    Contact Us
+                    <a href="#footer">Contact Us</a>
                 </li>
             </ul>
         </span>
@@ -81,13 +86,12 @@ function NavbarRightsideList() {
 
 function SearchIcon() {
     return (
-        <span  title="Search Items">
+        <span title="Search Items">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="rgb(93 60 148)"
                 className="hidden size-8 rounded-md bg-white p-2 shadow-lg transition-all hover:-translate-y-[2px] sm:flex sm:size-10"
-                
             >
                 <path
                     fillRule="evenodd"
@@ -105,35 +109,37 @@ function CartIcon() {
 
     return (
         <>
-        {NumberOfItemsInCart ? (
-            <span className="absolute right-[8.7rem] top-[20px] z-[9999999999] flex h-[18px] w-[18px] items-center justify-center rounded-full bg-red-600">
-                <p className="p-1 text-[.8rem] font-[900] text-white">
-                    {NumberOfItemsInCart}
-                </p>
-            </span>
-        ) : (
-            <></>
-        )}
-        <span
-            onClick={() => console.log(NumberOfItemsInCart)}
-            className="flex items-center justify-center rounded-md bg-white shadow-lg transition-all hover:-translate-y-[2px] sm:size-10"  title="View Cart"
-        >
-            
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6 "
-            >
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                />
-            </svg>
-        </span>
+            {NumberOfItemsInCart ? (
+                <span className="absolute right-[7.5rem] top-[20px] z-[9999999999] flex h-[18px] w-[18px] items-center justify-center rounded-full bg-red-600 lg:right-[8.7rem] lg:top-[20px]">
+                    <p className="p-1 text-[.8rem] font-[900] text-white">
+                        {NumberOfItemsInCart}
+                    </p>
+                </span>
+            ) : (
+                <></>
+            )}
+            <Link to="/cart">
+                <span
+                    onClick={() => console.log(NumberOfItemsInCart)}
+                    className="flex size-8 items-center justify-center rounded-md bg-white shadow-lg transition-all hover:-translate-y-[2px] sm:size-10"
+                    title="View Cart"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-6"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                        />
+                    </svg>
+                </span>
+            </Link>
         </>
     )
 }

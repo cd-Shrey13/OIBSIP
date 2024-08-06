@@ -43,7 +43,6 @@ function DishSliderCard({
     itemPrice,
     itemId,
 }) {
-
     return (
         <>
             <div className="flex w-full flex-shrink-0 transform snap-start flex-col items-center justify-between gap-2 scroll-smooth rounded-[24px] bg-[#181818] p-[10px] text-white shadow-md transition-all duration-300 lg:hover:-translate-y-[2px]">
@@ -60,12 +59,9 @@ function DishSliderCard({
                     </p>
                     <span className="flex w-full flex-shrink-0 items-center justify-between rounded-[4px] p-[4px]">
                         <h2 className="mb-2 text-lg font-[900]">
-                            {itemPrice + '₹'}
+                            {'₹ ' + itemPrice}
                         </h2>
-                        <AddIcon
-                            itemId={itemId}
-                            
-                        />
+                        <AddIcon itemId={itemId} />
                     </span>
                 </span>
             </div>
@@ -79,12 +75,11 @@ function AddIcon({ itemId }) {
     function handleOnClick(itemId) {
         const fooditem = food_list.find((item) => item._id === itemId)
         addItemToCart(fooditem)
-        console.log(cartTotalAmount)
     }
 
     return (
         <button
-            className="inline-block text-gray-700  focus:relative  rounded-[14px]"
+            className="inline-block rounded-[14px] text-gray-700 focus:relative"
             title="Add item to cart"
             onClick={() => handleOnClick(itemId)}
         >
@@ -93,7 +88,7 @@ function AddIcon({ itemId }) {
                 width="4px"
                 height="4px"
                 viewBox="0 0 400 400"
-                className="hidden size-4 rounded-[14px] bg-white p-2 shadow-lg sm:flex sm:size-8 hover:bg-gray-500 hover:text-white"
+                className="flex size-8 rounded-[14px] bg-white p-2 shadow-lg hover:bg-gray-500 hover:text-white"
             >
                 <g>
                     <g>
