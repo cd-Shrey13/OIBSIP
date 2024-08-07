@@ -3,26 +3,27 @@ import mongoose from "mongoose";
 import model from "./Models/user.model.js";
 import cors from "cors";
 import bcrypt from "bcrypt";
+import connectDatabase from "./config/db.js";
+import foodRouter from "./routes/foodroute.js";
+const app = express();
 
 const User = model;
 
-async function connectDatabase() {
-  try {
-    await mongoose.connect(
-      "mongodb+srv://shreyprajapati13:0pYkP51wHt0oSIjc@cluster0.tjjfrmf.mongodb.net/"
-    );
-    console.log("DB connected...");
-  } catch (error) {
-    console.log("Cannot connect to Db");
-  }
-}
 
+
+//Connect database
 connectDatabase();
 
-const app = express();
 
+//Middlewares
 app.use(express.json());
 app.use(cors());
+
+
+//API endpoints
+
+app.use("/food", foodRouter);
+
 
 app.post("/signup", async (req, res) => {
   try {
