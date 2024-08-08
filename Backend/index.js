@@ -1,46 +1,38 @@
 import express from "express";
-import mongoose from "mongoose";
-import model from "./Models/user.model.js";
 import cors from "cors";
 import bcrypt from "bcrypt";
 import connectDatabase from "./config/db.js";
 import foodRouter from "./routes/foodroute.js";
+import { user } from "./Models/user.model.js";
 const app = express();
-
-const User = model;
-
-
 
 //Connect database
 connectDatabase();
-
 
 //Middlewares
 app.use(express.json());
 app.use(cors());
 
-
 //API endpoints
 
 app.use("/food", foodRouter);
 
-
 app.post("/signup", async (req, res) => {
   try {
-    const password = req.body.password;
+    const { firstname, lastname, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    await User.create({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
+    await user.create({
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
       password: hashedPassword,
     });
     res.status(200).json({
-      msg: "User created successfully!",
+      msg: "user created successfully!",
     });
   } catch (error) {
     res.status(404).json({
-      msg: "User not created!",
+      msg: "user not created!",
     });
   }
 });
@@ -49,7 +41,7 @@ app.post("/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({
+    const user = await user.findOne({
       email: email,
     });
 
@@ -62,10 +54,10 @@ app.post("/signin", async (req, res) => {
     }
 
     res.status(200).json({
-      msg: "User found!",
+      msg: "user found!",
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
 
     res.status(403).json({
       msg: "You fucked up",
