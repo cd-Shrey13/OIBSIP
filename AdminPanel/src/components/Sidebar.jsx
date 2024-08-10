@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
 
-export function Sidebar() {
+export default function Sidebar({ className }) {
     return (
-        <div className="col-start-1 col-end-2 row-start-2 row-end-3 flex flex-col gap-4 rounded-[24px] bg-[white] p-4">
+        <div className={twMerge("col-start-1 col-end-2 row-start-2 row-end-3 flex flex-col gap-4 rounded-[24px] bg-[#e84545] p-4 h-[90%]",className)}>
             <Link to={'/'}>
                 <div>
                     <label
@@ -18,7 +19,7 @@ export function Sidebar() {
                             name="option"
                         />
 
-                        <span class="text-sm"> Option 1 </span>
+                        <span class="text-sm"> Add FoodItem </span>
                     </label>
                 </div>
             </Link>
@@ -38,7 +39,7 @@ export function Sidebar() {
                             name="option"
                         />
 
-                        <span class="text-sm"> Option 2 </span>
+                        <span class="text-sm"> View Food List </span>
                     </label>
                 </div>
             </Link>
@@ -58,7 +59,7 @@ export function Sidebar() {
                             name="option"
                         />
 
-                        <span class="text-sm"> Option 3 </span>
+                        <span class="text-sm"> View Orders </span>
                     </label>
                 </div>
             </Link>

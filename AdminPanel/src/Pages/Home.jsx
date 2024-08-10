@@ -1,15 +1,16 @@
-import { Navbar } from '../components/Navbar';
-import { Sidebar } from '../components/Sidebar';
+import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 import AdminContent from '../components/AdminContent';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Suspense } from 'react';
+import ListFooditems from './ListFoodItems';
 export function Home() {
     return (
         <>
-            <div className="grid h-full w-full grid-cols-[1fr_5fr] grid-rows-[1fr_10fr] gap-2 bg-white p-2">
-                <Navbar />
+            <div className="grid h-full w-full grid-cols-[1fr_5fr] grid-rows-[1fr_10fr] gap-2 p-2 bg-[#6a2626]">
+                <Navbar/>
                 <BrowserRouter>
-                <Sidebar />
+                    <Sidebar  className="h-[10%]" />
                     <Routes>
                         <Route
                             path="/"
@@ -23,7 +24,7 @@ export function Home() {
                             path="/ListItems"
                             element={
                                 <Suspense fallback="Loading">
-                                    <AdminContent className={"bg-red-500"}/>
+                                    <ListFooditems />
                                 </Suspense>
                             }
                         ></Route>
@@ -31,7 +32,7 @@ export function Home() {
                             path="/ViewOrders"
                             element={
                                 <Suspense fallback="Loading">
-                                    <AdminContent className={"bg-red-900"}/>
+                                    <AdminContent className={'bg-red-900'} />
                                 </Suspense>
                             }
                         ></Route>
