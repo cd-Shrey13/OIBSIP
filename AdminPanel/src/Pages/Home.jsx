@@ -7,16 +7,16 @@ import ListFooditems from './ListFoodItems';
 export function Home() {
     return (
         <>
-            <div className="grid h-full w-full grid-cols-[1fr_5fr] grid-rows-[1fr_10fr] gap-2 p-2 bg-[#6a2626]">
+            <div className="grid h-full w-full grid-cols-[1fr_6fr] grid-rows-[1fr_10fr] gap-2 p-2 ">
                 <Navbar/>
                 <BrowserRouter>
-                    <Sidebar  className="h-[10%]" />
+                    <Sidebar className={"h-full bg-[var(--color-purple)]"}/>
                     <Routes>
                         <Route
                             path="/"
                             element={
                                 <Suspense fallback="Loading">
-                                    <AdminContent />
+                                    <AdminContent className={"h-full w-full  bg-[var(--color-purple)]"}/>
                                 </Suspense>
                             }
                         ></Route>
@@ -24,7 +24,7 @@ export function Home() {
                             path="/ListItems"
                             element={
                                 <Suspense fallback="Loading">
-                                    <ListFooditems />
+                                    <ListFooditems className={"h-full w-full  bg-[var(--color-purple)]"}/>
                                 </Suspense>
                             }
                         ></Route>

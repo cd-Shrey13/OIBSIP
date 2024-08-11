@@ -1,12 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { food_list } from '../../../Frontend/src/assets/assets';
-export default function ListFooditems() {
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { twMerge } from 'tailwind-merge';
+
+export default function ListFooditems({ className }) {
     const [itemList, setItemList] = useState(food_list);
-    const removeItemFromCart = (filterItemId) =>
-        setItemList((prev) => prev.filter((item) => item._id !== filterItemId));
+
+    async function removeItemFromList(filterItemId) {
+        await axios.post('http://localhost:3000/food/removefooditems', {
+            id: filterItemId,
+        });
+        if (!response.data.success) {
+            toast.error('Some Error occured');
+            return;
+        }
+        toast('Some Item removed!');
+        setItemList(response.data.data);
+    }
+
+    async function fetchFoodList() {
+        // console.log('hello ');
+        const response = await axios.get(
+            'http://localhost:3000/food/listfooditems'
+        );
+        if (!response.data.success) {
+            toast.error('Some Error occured');
+            return;
+        }
+        setItemList(response.data.data);
+    }
+
+    useEffect(() => {
+        fetchFoodList();
+    }, []);
+
     return (
         <>
-            <section className="w-full font-Satohi flex flex-col items-center justify-start gap-4 h-[60%]">
+            <section
+                className={twMerge(
+                    'flex h-[60%] w-full flex-col items-center justify-start gap-4 rounded-[24px] p-4 font-Satohi',
+                    className
+                )}
+            >
                 <header className="flex w-full flex-col items-start justify-center gap-2 rounded-[12px] bg-slate-400 p-2">
                     <h2 className="text-[2rem] font-[600]">All Food List</h2>
                     <div className="w-full border-2 border-slate-950">
@@ -21,12 +57,12 @@ export default function ListFooditems() {
                         </ul>
                     </div>
                 </header>
-                <div className="w-full h-[80%]">
-                    <ul className="flex w-full flex-col justify-between text-[1.3rem] font-[600] overflow-y-hidden  h-full">
+                <div className="h-[80%] w-full">
+                    <ul className="flex h-full w-full flex-col justify-between overflow-y-hidden text-[1.3rem] font-[600]">
                         {itemList.map((item, index) => (
                             <CartItemCard
                                 product={item}
-                                removeItemFromCart={removeItemFromCart}
+                                removeItemFromList={removeItemFromList}
                                 key={index}
                             />
                         ))}
@@ -37,18 +73,19 @@ export default function ListFooditems() {
     );
 }
 
-function CartItemCard({ product, removeItemFromCart }) {
+function CartItemCard({ product, removeItemFromList }) {
     const { _id, name, image, price, description, category } = product;
+    console.log(_id);
 
     function handleOnClick(id) {
-        removeItemFromCart(id);
+        removeItemFromList(id);
     }
     return (
         <li className="mb-4 flex w-full items-center justify-center rounded-[12px] bg-slate-100">
             <ul className="flex w-full justify-between text-[1.3rem] font-[600]">
                 <li className="flex w-[20%] justify-start p-2">
                     <img
-                        src={image}
+                        src={`http://localhost:3000/images/${image}`}
                         alt=""
                         className="size-[10rem] rounded object-cover"
                     />
@@ -68,7 +105,7 @@ function CartItemCard({ product, removeItemFromCart }) {
                     {/* <span className="flex items-center justify-center bg-red-200"> */}
                     <button
                         className="flex items-center justify-center text-gray-600 transition hover:text-red-600"
-                        onClick={() => handleOnClick(_id)}
+                        onClick={() => removeItemFromList(_id)}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

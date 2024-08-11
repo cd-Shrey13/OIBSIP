@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 export default function AdminContent({ className }) {
     const [uploadedImage, setUploadedImage] = useState(null);
     const [productData, setProductData] = useState({
@@ -59,8 +60,8 @@ export default function AdminContent({ className }) {
                         </span>
                         <div className="w-full">
                             <label
-                                for="productImage"
-                                class="block text-lg font-[500] text-black"
+                                htmlFor="productImage"
+                                className="block text-lg font-[500] text-black"
                             >
                                 {' '}
                                 Product Image:{' '}
@@ -70,7 +71,7 @@ export default function AdminContent({ className }) {
                                 type="file"
                                 id="productImage"
                                 placeholder="Type Here"
-                                class="mt-1 rounded-md border-gray-400 bg-gray-300 p-2 shadow-sm sm:text-sm"
+                                className="mt-1 rounded-md border-gray-400 bg-gray-300 p-2 shadow-sm sm:text-sm"
                                 onChange={(e) => {
                                     setUploadedImage(e.target.files[0]);
                                 }}
@@ -80,7 +81,7 @@ export default function AdminContent({ className }) {
                         <div className="w-full">
                             <label
                                 for="productName"
-                                class="block text-lg font-[500] text-black"
+                                className="block text-lg font-[500] text-black"
                             >
                                 {' '}
                                 Product Name:{' '}
@@ -90,7 +91,7 @@ export default function AdminContent({ className }) {
                                 type="text"
                                 id="productName"
                                 placeholder="Type Here"
-                                class="mt-1 w-full rounded-md border-gray-200 p-2 shadow-sm sm:text-sm"
+                                className="mt-1 w-full rounded-md border-gray-200 p-2 shadow-sm sm:text-sm"
                                 onChange={(e) => {
                                     setProductData((prev) => ({
                                         ...prev,
@@ -103,7 +104,7 @@ export default function AdminContent({ className }) {
                         <div className="w-full">
                             <label
                                 for="Product_Description"
-                                class="block text-lg font-[500] text-black"
+                                className="block text-lg font-[500] text-black"
                             >
                                 {' '}
                                 Product Description:{' '}
@@ -112,7 +113,7 @@ export default function AdminContent({ className }) {
                             <textarea
                                 id="Product_Description"
                                 placeholder="Type Here"
-                                class="mt-1 w-full resize-none rounded-md border-gray-200 p-2 shadow-sm sm:text-sm"
+                                className="mt-1 w-full resize-none rounded-md border-gray-200 p-2 shadow-sm sm:text-sm"
                                 rows="8"
                                 onChange={(e) => {
                                     setProductData((prev) => ({
@@ -127,7 +128,7 @@ export default function AdminContent({ className }) {
                             <div>
                                 <label
                                     for="Product_Category"
-                                    class="block text-lg font-[500] text-black"
+                                    className="block text-lg font-[500] text-black"
                                 >
                                     {' '}
                                     Product Category:{' '}
@@ -158,7 +159,7 @@ export default function AdminContent({ className }) {
                             <div>
                                 <label
                                     for="productPrice"
-                                    class="block text-lg font-[500] text-black"
+                                    className="block text-lg font-[500] text-black"
                                 >
                                     {' '}
                                     Product Price:{' '}
@@ -168,7 +169,7 @@ export default function AdminContent({ className }) {
                                     type="text"
                                     id="productPrice"
                                     placeholder="Type Here"
-                                    class="mt-1 w-full rounded-md border-gray-200 p-2 shadow-sm sm:text-sm"
+                                    className="mt-1 w-full rounded-md border-gray-200 p-2 shadow-sm sm:text-sm"
                                     onChange={(e) => {
                                         setProductData((prev) => ({
                                             ...prev,

@@ -18,12 +18,12 @@ export async function addFoodItems(req, res) {
   try {
     await food.save();
     res.json({
-      msg: "Food Item added",
+      success: true,
     });
   } catch (error) {
     console.log(error.message);
     res.json({
-      msg: "Food Item did not added",
+      success: false,
     });
   }
 }
@@ -32,13 +32,13 @@ export async function listFoodItems(req, res) {
   try {
     const food = await foodModel.find({});
     res.json({
-      msg: "Food Item added",
+      success: true,
       data: food,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res.json({
-      msg: "Food Item did not added",
+      success: false,
     });
   }
 }
@@ -51,13 +51,13 @@ export async function removeFoodItems(req, res) {
     await foodModel.findByIdAndDelete(req.body.id);
 
     res.json({
-      msg: "Food Item Deleted",
+      success: true,
       data: food,
     });
   } catch (error) {
     console.log(error.message);
     res.json({
-      msg: "Food Item did not added",
+      success: false,
     });
   }
 }

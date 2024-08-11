@@ -1,14 +1,21 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
 export default function Sidebar({ className }) {
+    // const [checkedButton, setCheckedButton] = useState[true,false,false]
     return (
-        <div className={twMerge("col-start-1 col-end-2 row-start-2 row-end-3 flex flex-col gap-4 rounded-[24px] bg-[#e84545] p-4 h-[90%]",className)}>
+        <div
+            className={twMerge(
+                'col-start-1 col-end-2 row-start-2 row-end-3 flex h-[90%] flex-col gap-4 rounded-[24px] p-4',
+                className
+            )}
+        >
             <Link to={'/'}>
                 <div>
                     <label
-                        for="Option1"
-                        class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-[var(--color-purple)] has-[:checked]:text-white"
+                        htmlFor="Option1"
+                        class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white p-3 text-gray-600 focus:bg-[var(--color-golden)]"
                         tabindex="0"
                     >
                         <input
@@ -27,8 +34,8 @@ export default function Sidebar({ className }) {
             <Link to={'/ListItems'}>
                 <div>
                     <label
-                        for="Option2"
-                        class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-[var(--color-purple)] has-[:checked]:text-white"
+                        htmlFor="Option2"
+                        class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white p-3 text-gray-600 focus:bg-[var(--color-golden)]"
                         tabindex="0"
                     >
                         <input
@@ -47,8 +54,8 @@ export default function Sidebar({ className }) {
             <Link to={'/ViewOrders'}>
                 <div>
                     <label
-                        for="Option3"
-                        class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-[var(--color-purple)] has-[:checked]:text-white"
+                        htmlFor="Option3"
+                        class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white p-3 text-gray-600 focus:bg-[var(--color-golden)]"
                         tabindex="0"
                     >
                         <input
