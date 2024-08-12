@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../Contexts/context'
 import H1 from '../components/H1'
+import { toast, ToastContainer } from 'react-toastify'
 
 function Login() {
     const navigate = useNavigate()
@@ -39,7 +40,11 @@ function Login() {
         console.log(formData)
         axios
             .post('http://localhost:3000/signin', formData)
-            .then(() => {
+            .then((response) => {
+                if (!response.data.success) {
+                    toast.error(response.data.msg)
+                    return
+                }
                 navigate('/')
                 login()
             })
@@ -48,6 +53,7 @@ function Login() {
 
     return (
         <div className="absolute z-[999999] flex h-[100vh] w-[100vw] items-center justify-center bg-white px-4 py-16 sm:px-6 lg:px-8">
+        <ToastContainer />
             <div className="max-w-lgp-2 mx-auto">
                 <H1 className={'mb-[4rem] text-black'}>Get started today</H1>
 

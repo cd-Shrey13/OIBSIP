@@ -7,7 +7,7 @@ export default function Sidebar({ className }) {
     return (
         <div
             className={twMerge(
-                'col-start-1 col-end-2 row-start-2 row-end-3 flex h-[90%] flex-col gap-4 rounded-[24px] p-4',
+                'col-start-1 col-end-2 row-start-2 row-end-3 flex h-[90%] flex-col gap-4 rounded-[24px] p-4 bg-[#181818]',
                 className
             )}
         >
@@ -15,7 +15,7 @@ export default function Sidebar({ className }) {
                 <div>
                     <label
                         htmlFor="Option1"
-                        class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white p-3 text-gray-600 focus:bg-[var(--color-golden)]"
+                        class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white p-3 text-gray-600 focus:bg-green-600"
                         tabindex="0"
                     >
                         <input
@@ -35,7 +35,7 @@ export default function Sidebar({ className }) {
                 <div>
                     <label
                         htmlFor="Option2"
-                        class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white p-3 text-gray-600 focus:bg-[var(--color-golden)]"
+                        class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white p-3 text-gray-600 focus:bg-green-600"
                         tabindex="0"
                     >
                         <input
@@ -55,7 +55,7 @@ export default function Sidebar({ className }) {
                 <div>
                     <label
                         htmlFor="Option3"
-                        class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white p-3 text-gray-600 focus:bg-[var(--color-golden)]"
+                        class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white p-3 text-gray-600 focus:bg-green-600"
                         tabindex="0"
                     >
                         <input

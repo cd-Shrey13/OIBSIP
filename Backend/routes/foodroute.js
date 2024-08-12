@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import foodModel from "../Models/food.model.js";
 import fs from "fs";
+import mongoose from "mongoose";
 
 export async function addFoodItems(req, res) {
   const imageFileName = req.file.filename;
@@ -13,6 +14,7 @@ export async function addFoodItems(req, res) {
     price: price,
     category: category,
     image: imageFileName,
+    id: mongoose.SchemaType.ObjectId
   });
 
   try {

@@ -10,13 +10,13 @@ export function Home() {
             <div className="grid h-full w-full grid-cols-[1fr_6fr] grid-rows-[1fr_10fr] gap-2 p-2 ">
                 <Navbar/>
                 <BrowserRouter>
-                    <Sidebar className={"h-full bg-[var(--color-purple)]"}/>
+                    <Sidebar className={"h-full"}/>
                     <Routes>
                         <Route
                             path="/"
                             element={
                                 <Suspense fallback="Loading">
-                                    <AdminContent className={"h-full w-full  bg-[var(--color-purple)]"}/>
+                                    <AdminContent className={"h-full w-full"}/>
                                 </Suspense>
                             }
                         ></Route>

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
 
 export default function ListFooditems({ className }) {
+    
     const [itemList, setItemList] = useState(food_list);
 
     async function removeItemFromList(filterItemId) {
@@ -16,7 +17,7 @@ export default function ListFooditems({ className }) {
             return;
         }
         toast('Some Item removed!');
-        setItemList(response.data.data);
+        fetchFoodList();
     }
 
     async function fetchFoodList() {

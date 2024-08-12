@@ -1,36 +1,55 @@
-import React from 'react'
-// import { menu_list } from '../../assets/assets'
-import { assets, food_list, menu_list } from '../../assets/assets'
+import React, { useEffect, useState } from 'react'
 import H1 from '../../components/H1'
 import { useCart } from '../../Contexts/context'
+import axios from 'axios'
 
 function DishOptions() {
+    const [foodList, setFoodList] = useState(null)
+
+    async function getFoodList() {
+        const response = await axios.get(
+            'http://localhost:3000/food/listfooditems'
+        )
+        if (!response.data.success) {
+            toast.error('Some Error occured')
+            return
+        }
+        setFoodList(response.data.data)
+    }
+
+    useEffect(() => {
+        getFoodList()
+    }, [])
     return (
         <section className="flex w-full items-center justify-center px-4 font-Satohi">
             <div className="flex w-full flex-col items-start justify-between gap-4 rounded-[12px] p-4 md:gap-4">
                 <H1 className={'text-black'}>Best dishes near you</H1>
-                <DishSlider />
+                <DishSlider foodList={foodList} />
             </div>
         </section>
     )
 }
 
-function DishSlider() {
+function DishSlider({ foodList }) {
     return (
         <>
             <div className="no-scrollbar flex w-full snap-x flex-col items-center justify-start gap-2 overflow-y-scroll rounded-[40px] p-4 shadow-inner max-sm:h-[28rem] sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-                {food_list.map((items, index) => {
-                    return (
-                        <DishSliderCard
-                            cardImage={items.image}
-                            cardImageName={items.name}
-                            key={index}
-                            cardImageDescription={items.description}
-                            itemPrice={items.price}
-                            itemId={items._id}
-                        />
-                    )
-                })}
+                {foodList ? (
+                    foodList.map((items, index) => {
+                        return (
+                            <DishSliderCard
+                                cardImage={items.image}
+                                cardImageName={items.name}
+                                key={index}
+                                cardImageDescription={items.description}
+                                itemPrice={items.price}
+                                itemId={items._id}
+                            />
+                        )
+                    })
+                ) : (
+                    <div>Loading...</div>
+                )}
             </div>
         </>
     )
@@ -47,7 +66,11 @@ function DishSliderCard({
         <>
             <div className="flex w-full flex-shrink-0 transform snap-start flex-col items-center justify-between gap-2 scroll-smooth rounded-[24px] bg-[#181818] p-[10px] text-white shadow-md transition-all duration-300 lg:hover:-translate-y-[2px]">
                 <span className="">
-                    <img src={cardImage} alt="" className="rounded-[12px]" />
+                    <img
+                        src={`http://localhost:3000/images/${cardImage}`}
+                        alt=""
+                        className="rounded-[12px]"
+                    />
                 </span>
                 <span className="flex w-full flex-shrink-0 flex-col items-start justify-center gap-2 rounded-[12px]">
                     <h2 className="flex-shrink-0 px-2 text-lg font-[900] lg:text-xl">

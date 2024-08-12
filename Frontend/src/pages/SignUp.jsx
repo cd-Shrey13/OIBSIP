@@ -3,7 +3,8 @@ import Button from '../components/Button'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import H1 from '../components/H1'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function SignUp() {
     const navigate = useNavigate()
@@ -18,13 +19,21 @@ function SignUp() {
     async function handleOnClick() {
         axios
             .post('http://localhost:3000/signup', formData)
-            .then(navigate('/signin'))
+            .then((response) => {
+                if (!response.data.success) {
+                    toast.error(response.data.msg)
+                    return
+                }
+                navigate('/signin')
+            })
             .catch((err) => console.log('err'))
     }
 
     return (
         <div className="absolute z-[999999999] flex h-[100vh] w-[100vw] items-center justify-center bg-white px-4 py-16 sm:px-6 lg:px-8">
             <div className="max-w-lgp-2 mx-auto">
+            <ToastContainer />
+
                 <H1 className={'mb-[4rem] text-black'}>Get started today</H1>
 
                 <form
