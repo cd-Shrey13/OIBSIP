@@ -1,9 +1,14 @@
-import React from 'react'
-import { twMerge } from 'tailwind-merge'
+import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 function BrandLogo({ className }) {
     return (
-        <span className={twMerge('flex items-start justify-center flex-col', className)}>
+        <span
+            className={twMerge(
+                'flex flex-col items-start justify-center',
+                className
+            )}
+        >
             <svg version="1.1" width="150" height="80" viewBox="0 0 2000 828">
                 <g transform="matrix(1,0,0,1,-1.2121212121212466,2.51461735629789)">
                     <svg
@@ -149,9 +154,11 @@ function BrandLogo({ className }) {
                     </svg>
                 </g>
             </svg>
-            <p className=' relative top-[-18px] font-[900] font-DancingScript text-[1.5rem] text-[var(--color-golden)]'>Admin Panel</p>
+            <p className="relative top-[-6px] left-[22px] font-DancingScript text-[1.2rem] font-[900] text-[var(--color-golden)]">
+                Admin Panel
+            </p>
         </span>
-    )
+    );
 }
 
-export default BrandLogo
+export default BrandLogo;
