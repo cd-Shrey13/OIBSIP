@@ -19,11 +19,16 @@ const User = new mongoose.Schema(
       type: String,
       required: true,
     },
+    cartData: {
+      type: Object,
+      default: {},
+    },
   },
-  { collection: "user-data" }
+  { collection: "user-data",
+    minimize: false
+   }
 );
 
 const UserModel = mongoose.model("User", User);
 
-export default UserModel; 
-
+export default UserModel;

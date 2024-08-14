@@ -22,7 +22,6 @@ export default function ListFooditems({ className }) {
 
     async function fetchFoodList() {
         const response = await axios.get(`${URL}/food/listfooditems`);
-        // alert("request sent!")
 
         if (!response.data.success) {
             toast.error('Some Error occured');

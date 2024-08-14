@@ -15,7 +15,7 @@ export default function Navbar() {
         >
             <BrandLogo className="h-[4.5rem]" />
             <Button
-                className="border-none"
+                className="border-none sm:hidden"
                 onClickHandler={() => setMobileMenuVisibility((prev) => !prev)}
             >
                 <svg

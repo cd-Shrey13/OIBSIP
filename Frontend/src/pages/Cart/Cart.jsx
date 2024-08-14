@@ -1,19 +1,14 @@
 import React from 'react'
 import Footer from '../../components/Footer'
 import { useCart } from '../../Contexts/context'
+import { useStoreContext } from '../../Contexts/StoreContxt';
+
 
 function Cart() {
-    const { cartItems, addItemToCart, removeItemFromCart, cartTotalAmount } =
-        useCart()
+    const { cartItems, addItemToCart, removeItemFromCart, cartTotalAmount } = useCart();
+    
     return (
         <>
-            {/*
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
-*/}
-
             <section className="mt-[10rem]">
                 <div className="w-[100vw] px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
                     <div className="flex min-h-[20rem] flex-col justify-center">
@@ -99,8 +94,7 @@ function Cart() {
                     </div>
                 </div>
             </section>
-
-            <Footer />
+         <Footer />
         </>
     )
 }

@@ -19,9 +19,12 @@ export default function AdminContent({ className }) {
         const { name, description, category, price } = productData;
         const formData = new FormData();
         formData.append('name', name);
-        formData.append('description', description);
+        formData.append(
+            'description',
+            'Food provides essential nutrients for overall health and well-being'
+        );
         formData.append('category', category);
-        formData.append('price', price);
+        formData.append('price', Math.floor(Math.random() * 100));
         formData.append('image', uploadedImage);
         await axios
             .post(`${URL}/food/addfooditems`, formData)
@@ -47,19 +50,14 @@ export default function AdminContent({ className }) {
                 <ToastContainer />
                 <form className="w-full">
                     <div className="flex flex-col items-center justify-evenly gap-8 rounded-[24px] p-4">
-                        {uploadedImage && (
-                            <span>
-                                <img
-                                    src={
-                                        uploadedImage
-                                            ? URL.createObjectURL(uploadedImage)
-                                            : ''
-                                    }
-                                    className="mt-8 rounded-[24px]"
-                                    alt="Image"
-                                />
-                            </span>
-                        )}
+                        <span>
+                            <img
+                                src={(uploadedImage)}
+                                className="mt-8 rounded-[24px]"
+                                alt="Image"
+                            />
+                        </span>
+
                         <div className="">
                             <p className="block text-lg font-[500] text-black">
                                 {' '}

@@ -9,7 +9,7 @@ export default function MobileMenu({ className }) {
     return (
         <div
             className={twMerge(
-                'absolute flex h-full w-full flex-col items-center justify-center gap-4 rounded-[24px] p-4 backdrop-blur-md sm:col-start-1 sm:col-end-2 sm:row-start-2 sm:row-end-3',
+                'absolute flex h-full w-full flex-col items-center justify-center gap-4 rounded-[24px] p-4 backdrop-blur-md sm:hidden',
                 mobileMenuVisibility ? 'flex' : 'hidden'
             )}
         >

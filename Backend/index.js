@@ -4,6 +4,9 @@ import bcrypt from "bcrypt";
 import connectDatabase from "./config/db.js";
 import foodRouter from "./routes/foodroute.js";
 import UserModel from "./Models/user.model.js";
+import cartRouter from "./routes/cartroute.js";
+// import orderRouter from "./routes/orderRoute.js";
+
 const app = express();
 
 //Connect database
@@ -16,6 +19,8 @@ app.use(cors());
 //API endpoints
 
 app.use("/food", foodRouter);
+app.use("/cart",cartRouter)
+// app.use("/order",orderRouter)
 app.use('/images',express.static('uploads'));
 
 app.post("/signup", async (req, res) => {

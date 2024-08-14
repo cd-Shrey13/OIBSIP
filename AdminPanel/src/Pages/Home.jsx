@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Suspense } from 'react';
 import ListFooditems from './ListFoodItems';
 import { MobileMenuProvider } from '../Context/Context';
+import Sidebar from '../components/Sidebar';
 
 export function Home() {
     return (
@@ -13,6 +14,7 @@ export function Home() {
                 <MobileMenuProvider>
                     <Navbar />
                     <BrowserRouter>
+                        <Sidebar />
                         <MobileMenu />
                         <Routes>
                             <Route
