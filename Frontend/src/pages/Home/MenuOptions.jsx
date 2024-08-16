@@ -5,7 +5,7 @@ import H1 from '../../components/H1.jsx'
 
 function MenuOptions() {
     return (
-        <section className="flex w-full items-center justify-center px-4 font-Satohi" id="menu">
+        <section className="flex w-full items-center justify-center px-4 font-Satohi bg-[var(--color-creme)]" id="menu" >
             <div className="flex w-full flex-col items-start justify-between gap-4 rounded-[12px] p-4 text-black sm:h-[30rem] md:gap-4 md:py-2 lg:h-[38rem] lg:py-8">
                <H1 className={'text-black'}>
                Explore our <br /> menu

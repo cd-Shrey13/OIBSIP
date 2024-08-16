@@ -3,7 +3,7 @@ import { assets } from '../../src/assets/assets'
 import BrandLogo from './BrandLogo'
 function Footer() {
     return (
-        <section className="w-full bg-[#121212] p-4 text-white" id="footer">
+        <section className="w-full bg-[#121212] p-4 text-white relative bottom-0" id="footer">
             <div className="mb-4 flex flex-col items-start justify-center gap-4 lg:flex-row lg:justify-start lg:gap-[10rem] lg:px-12">
                 <span className="flex flex-col items-start justify-center gap-4">
                     <BrandLogo/>

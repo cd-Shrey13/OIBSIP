@@ -4,8 +4,8 @@ import Button from '../../components/Button'
 
 function Hero() {
     return (
-        <section className="flex w-full items-center justify-center px-4 font-Satohi mt-[8rem]">
-            <div className="hero_img flex h-[12rem] w-full items-end justify-center rounded-[24px] sm:h-[18rem] sm:p-4 md:h-[25rem] lg:h-[42rem]">
+        <section className=" flex w-full items-center justify-center px-4 font-Satohi bg-[var(--color-creme)]">
+            <div className="hero_img  mt-[2rem] flex h-[12rem] w-full items-end justify-center rounded-[24px] sm:h-[18rem] sm:p-4 md:h-[25rem] lg:h-[42rem]">
                 <div className="flex h-full w-full flex-col items-start justify-between rounded-[24px] p-4 sm:h-[16rem] sm:justify-end sm:gap-4 md:gap-4 md:p-2 lg:h-[22rem]">
                     <H1>
                         Order your favourite <br />

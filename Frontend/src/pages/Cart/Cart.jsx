@@ -1,97 +1,82 @@
 import React from 'react'
 import Footer from '../../components/Footer'
-import { useCart } from '../../Contexts/context'
 import { useStoreContext } from '../../Contexts/StoreContxt'
+import Navbar from '../../components/Navbar'
+import Button from '../../components/Button'
+import axios from 'axios'
+import Razorpay from 'razorpay'
 
 function Cart() {
-    const { foodList, itemsQuantityInCart } = useStoreContext()
-    const newFoodList = []
+    const { cartItems, cartTotalAmount } = useStoreContext()
 
-    // for (const key1 in itemsQuantityInCart) {
-    for (const key in foodList) {
-        if (itemsQuantityInCart.hasOwnProperty(foodList[key]._id)) {
-            newFoodList.push(foodList[key])
+    async function displayRazorpay() {
+        const response = await axios.post(
+            'http://localhost:3000/order/placeOrder',
+            {
+                userId: '66ba19e0dd08fdace795d7f3',
+                items: cartItems,
+                amount: (cartTotalAmount + cartTotalAmount * 0.18).toFixed(2),
+                address: 'test',
+            }
+        )
+
+        if (!response) {
+            alert('Failed to create an order!')
+            return
         }
+
+        const payload = response.data.data
+
+        const paymentObject = new window.Razorpay(payload)
+        paymentObject.open()
     }
 
     return (
         <>
-            <section className="mt-[10rem]">
-                <div className="w-[100vw] px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-                    <div className="flex min-h-[20rem] flex-col justify-center">
-                        <header className="text-center">
-                            <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">
-                                Your Cart
-                            </h1>
-                        </header>
-
-                        <div className="mt-8">
-                            <ul className="space-y-4">
-                                {newFoodList.map((item, index) => (
-                                    <CartItemCard product={item} key={index} />
-                                ))}
-                            </ul>
-
-                            <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
-                                <div className="w-screen max-w-lg space-y-4">
-                                    <dl className="space-y-0.5 text-sm text-gray-700">
-                                        <div className="flex justify-between">
-                                            <dt>Subtotal</dt>
-                                            {/* <dd>₹{cartTotalAmount}</dd> */}
-                                        </div>
-
-                                        <div className="flex justify-between">
-                                            <dt>GST</dt>
-                                            {/* <dd>₹{cartTotalAmount * 0.18}</dd> */}
-                                        </div>
-
-                                        {/* <div className="flex justify-between">
-                                            <dt>Discount</dt>
-                                            <dd>-£20</dd>
-                                        </div> */}
-
-                                        <div className="flex justify-between !text-base font-medium">
-                                            <dt>Total</dt>
-                                            {/* <dd>
-                                                ₹
-                                                {cartTotalAmount +
-                                                    cartTotalAmount * 0.18}
-                                            </dd> */}
-                                        </div>
-                                    </dl>
-
-                                    <div className="flex justify-end">
-                                        {/* <span className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth="1.5"
-                                                stroke="currentColor"
-                                                className="-ms-1 me-1.5 h-4 w-4"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
-                                                />
-                                            </svg>
-
-                                            <p className="whitespace-nowrap text-xs">
-                                                2 Discounts Applied
-                                            </p>
-                                        </span> */}
-                                    </div>
-
-                                    <div className="flex justify-end">
-                                        <a
-                                            href="#"
-                                            className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
-                                        >
-                                            Checkout
-                                        </a>
-                                    </div>
+            <Navbar />
+            <section className="flex w-full justify-center bg-[var(--color-creme)] py-2">
+                <div className="flex max-w-fit flex-col items-center justify-center gap-4 rounded-[12px] bg-slate-50 px-4 py-8 sm:px-6 sm:py-4 lg:px-4">
+                    <header className="text-center">
+                        <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">
+                            Your Cart
+                        </h1>
+                    </header>
+                    <div className="flex max-h-[80vh] w-full flex-col items-center justify-start gap-2 overflow-y-scroll rounded-[12px] bg-slate-100 p-4">
+                        {cartItems.map((item, index) => (
+                            <CartItemCard product={item} key={index} />
+                        ))}
+                    </div>
+                    <div className="mt-8 flex justify-end border-t border-gray-100 px-4 pt-8">
+                        <div className="w-screen max-w-lg space-y-4">
+                            <dl className="space-y-0.5 text-sm text-gray-700">
+                                <div className="flex justify-between">
+                                    <dt>Subtotal</dt>
+                                    <dd>₹{cartTotalAmount}</dd>
                                 </div>
+
+                                <div className="flex justify-between">
+                                    <dt>GST</dt>
+                                    <dd>
+                                        ₹{(cartTotalAmount * 0.18).toFixed(2)}
+                                    </dd>
+                                </div>
+
+                                <div className="flex justify-between !text-base font-medium">
+                                    <dt>Total</dt>
+                                    <dd>
+                                        ₹
+                                        {(
+                                            cartTotalAmount +
+                                            cartTotalAmount * 0.18
+                                        ).toFixed(2)}
+                                    </dd>
+                                </div>
+                            </dl>
+
+                            <div className="flex justify-end">
+                                <Button onClickHandler={displayRazorpay}>
+                                    Checkout
+                                </Button>
                             </div>
                         </div>
                     </div>
@@ -103,14 +88,20 @@ function Cart() {
 }
 
 function CartItemCard({ product }) {
-    const { _id, name, image, price, description, category } = product
+    const { _id, name, image, price, description, category, quantity } = product
+    const { itemsQuantityInCart, addItemToCart, removeItemFromCart } =
+        useStoreContext()
 
     function handleOnClick(id) {
         // removeItemFromCart(id)
-    } 
+    }
     return (
-        <li className="flex items-center gap-4">
-            <img src={`http://localhost:3000/images/${image}`} alt="" className="size-16 rounded object-cover" />
+        <div className="flex w-full items-center gap-4 rounded-[12px] bg-slate-200 p-2">
+            <img
+                src={`http://localhost:3000/images/${image}`}
+                alt=""
+                className="size-16 rounded object-cover"
+            />
 
             <div>
                 <h3 className="text-sm text-gray-900">{name}</h3>
@@ -123,45 +114,71 @@ function CartItemCard({ product }) {
                 </dl>
             </div>
 
-            <div className="flex flex-1 items-center justify-end gap-2">
-                {/* <form>
-                    <label htmlFor="Line1Qty" className="sr-only">
-                        {' '}
-                        Quantity{' '}
-                    </label>
-
-                    <input
-                        type="number"
-                        min="1"
-                        value="1"
-                        id="Line1Qty"
-                        className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
-                    />
-                </form> */}
-
-                <button
-                    className="text-gray-600 transition hover:text-red-600"
-                    onClick={() => handleOnClick(_id)}
-                >
-                    <span className="sr-only">Remove item</span>
-
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="h-4 w-4"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                        />
-                    </svg>
-                </button>
+            <div className="flex w-fit flex-1 items-center justify-end gap-2 p-2">
+                <div>
+                    <div className="flex items-center justify-between gap-2 rounded-[8px] bg-slate-50 px-2 py-[6px]">
+                        <button
+                            className="inline-block rounded-[8px] text-gray-700 focus:relative"
+                            title="Add item to cart"
+                            onClick={() => removeItemFromCart(_id)}
+                        >
+                            <svg
+                                width="4px"
+                                height="4px"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="flex size-8 rounded-[12px] p-2 shadow-lg hover:text-red-600"
+                            >
+                                <path
+                                    d="M16 12H8M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        </button>
+                        <p>{itemsQuantityInCart[_id]}</p>
+                        <button
+                            className="inline-block rounded-[8px] focus:relative"
+                            title="Add item to cart"
+                            onClick={() => addItemToCart(_id)}
+                        >
+                            <svg
+                                fill="currentColor"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                width="4px"
+                                height="4px"
+                                viewBox="0 0 400 400"
+                                className="flex size-8 rounded-[14px] p-2 shadow-lg hover:text-green-600"
+                            >
+                                <g>
+                                    <g>
+                                        <path
+                                            stroke="currentColor"
+                                            d="M199.995,0C89.716,0,0,89.72,0,200c0,110.279,89.716,200,199.995,200C310.277,400,400,310.279,400,200
+			C400,89.72,310.277,0,199.995,0z M199.995,373.77C104.182,373.77,26.23,295.816,26.23,200c0-95.817,77.951-173.77,173.765-173.77
+			c95.817,0,173.772,77.953,173.772,173.77C373.769,295.816,295.812,373.77,199.995,373.77z"
+                                        />
+                                        <path
+                                            stroke="currentColor"
+                                            d="M279.478,186.884h-66.363V120.52c0-7.243-5.872-13.115-13.115-13.115s-13.115,5.873-13.115,13.115v66.368h-66.361
+			c-7.242,0-13.115,5.873-13.115,13.115c0,7.243,5.873,13.115,13.115,13.115h66.358v66.362c0,7.242,5.872,13.114,13.115,13.114
+			c7.242,0,13.115-5.872,13.115-13.114v-66.365h66.367c7.241,0,13.114-5.873,13.114-13.115
+			C292.593,192.757,286.72,186.884,279.478,186.884z"
+                                        />
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
-        </li>
+        </div>
     )
 }
 

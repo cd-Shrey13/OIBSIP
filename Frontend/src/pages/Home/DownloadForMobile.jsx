@@ -3,7 +3,7 @@ import { assets } from '../../assets/assets'
 
 function DownloadForMobile() {
     return (
-        <section className="container p-4">
+        <section className=" w-full bg-[var(--color-creme)] p-4">
             <div className="flex w-full flex-col items-center justify-center p-4 text-center lg:gap-8">
                 <h1 className="font-Satohi text-[1.2rem] font-[800] sm:text-[2rem] md:text-[3rem]">
                     For Better Experience Download <br className="lg:hidden" />{' '}

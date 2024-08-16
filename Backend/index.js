@@ -4,7 +4,7 @@ import connectDatabase from "./config/db.js";
 import foodRouter from "./routes/foodroute.js";
 import cartRouter from "./routes/cartroute.js";
 import userRouter from "./routes/userRoute.js";
-// import orderRouter from "./routes/orderRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(cors());
 app.use(userRouter)
 app.use("/food", foodRouter);
 app.use("/cart", cartRouter);
-// app.use("/order",orderRouter)
+app.use("/order",orderRouter)
 app.use("/images", express.static("uploads"));
 
 app.listen(3000);

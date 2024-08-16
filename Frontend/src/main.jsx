@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import Navbar from './components/Navbar'
 import Home from './pages/Home/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
@@ -15,7 +14,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <AuthProvider>
                 <StoreContextProvider>
                     <CartProvider>
-                        <Navbar />
                         <Routes>
                             <Route
                                 path="/"

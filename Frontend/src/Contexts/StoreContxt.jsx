@@ -1,12 +1,8 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect, useMemo } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 
 const StoreContext = createContext(null)
-
-export function useStoreContext() {
-    return useContext(StoreContext)
-}
 
 function StoreContextProvider({ children }) {
     const [itemsQuantityInCart, setItemsQuantityInCart] = useState({})
@@ -91,12 +87,28 @@ function StoreContextProvider({ children }) {
         getCartItemList()
     }, [])
 
-    useEffect(() => {
-        getCartItemList()
-    }, [])
+    const [cartItems,cartTotalAmount] = useMemo(() => {
+        const newFoodList = []
+        let cartTotalAmount = 0
+
+        for (const key in foodList) {
+            let itemId = foodList[key]._id
+            let quantity = itemsQuantityInCart[itemId]
+
+            if (itemsQuantityInCart.hasOwnProperty(itemId)) {
+                let obj = { ...foodList[key], quantity: quantity }
+                cartTotalAmount += obj.price * quantity
+                newFoodList.push(obj)
+            }
+        }
+
+        return [[...newFoodList],(cartTotalAmount)];
+    },[itemsQuantityInCart]);
 
     const contextValue = {
         foodList,
+        cartItems,
+        cartTotalAmount,
         setFoodList,
         itemsQuantityInCart,
         addItemToCart,
@@ -108,6 +120,10 @@ function StoreContextProvider({ children }) {
             {children}
         </StoreContext.Provider>
     )
+}
+
+export function useStoreContext() {
+    return useContext(StoreContext)
 }
 
 export default StoreContextProvider

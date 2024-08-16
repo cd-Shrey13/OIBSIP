@@ -14,10 +14,12 @@ body {
     width: 100%;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    background-color: #181818;
 }
 
 @layer utilities {
     :root {
+        --color-creme: #FFF5EA;
         --color-golden: rgb(249 210 100);
         --color-purple: rgb(93 60 148);
         --color-lime: rgb(233 238 184);

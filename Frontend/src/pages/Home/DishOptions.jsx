@@ -6,7 +6,7 @@ import { useStoreContext } from '../../Contexts/StoreContxt'
 
 function DishOptions() {
     return (
-        <section className="flex w-full items-center justify-center px-4 font-Satohi">
+        <section className="flex w-full items-center justify-center px-4 font-Satohi bg-[var(--color-creme)]">
             <ToastContainer />
             <div className="flex w-full flex-col items-start justify-between gap-4 rounded-[12px] p-4 md:gap-4">
                 <H1 className={'text-black'}>Best dishes near you</H1>
@@ -23,7 +23,7 @@ function DishSlider() {
             <div className="no-scrollbar flex w-full snap-x flex-col items-center justify-start gap-2 overflow-y-scroll rounded-[40px] p-4 shadow-inner max-sm:h-[28rem] sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
                 {foodList ? (
                     foodList.map((items, index) => {
-                        return <DishSliderCard item={items} key={items._id} />
+                        return <DishSliderCard item={items} key={index} />
                     })
                 ) : (
                     <div>Loading...</div>
