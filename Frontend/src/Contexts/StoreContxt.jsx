@@ -91,6 +91,10 @@ function StoreContextProvider({ children }) {
         getCartItemList()
     }, [])
 
+    useEffect(() => {
+        getCartItemList()
+    }, [])
+
     const contextValue = {
         foodList,
         setFoodList,

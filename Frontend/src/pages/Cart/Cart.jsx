@@ -1,12 +1,19 @@
 import React from 'react'
 import Footer from '../../components/Footer'
 import { useCart } from '../../Contexts/context'
-import { useStoreContext } from '../../Contexts/StoreContxt';
-
+import { useStoreContext } from '../../Contexts/StoreContxt'
 
 function Cart() {
-    const { cartItems, addItemToCart, removeItemFromCart, cartTotalAmount } = useCart();
-    
+    const { foodList, itemsQuantityInCart } = useStoreContext()
+    const newFoodList = []
+
+    // for (const key1 in itemsQuantityInCart) {
+    for (const key in foodList) {
+        if (itemsQuantityInCart.hasOwnProperty(foodList[key]._id)) {
+            newFoodList.push(foodList[key])
+        }
+    }
+
     return (
         <>
             <section className="mt-[10rem]">
@@ -20,12 +27,8 @@ function Cart() {
 
                         <div className="mt-8">
                             <ul className="space-y-4">
-                                {cartItems.map((item, index) => (
-                                    <CartItemCard
-                                        product={item}
-                                        removeItemFromCart={removeItemFromCart}
-                                        key={index}
-                                    />
+                                {newFoodList.map((item, index) => (
+                                    <CartItemCard product={item} key={index} />
                                 ))}
                             </ul>
 
@@ -34,12 +37,12 @@ function Cart() {
                                     <dl className="space-y-0.5 text-sm text-gray-700">
                                         <div className="flex justify-between">
                                             <dt>Subtotal</dt>
-                                            <dd>₹{cartTotalAmount}</dd>
+                                            {/* <dd>₹{cartTotalAmount}</dd> */}
                                         </div>
 
                                         <div className="flex justify-between">
                                             <dt>GST</dt>
-                                            <dd>₹{cartTotalAmount * 0.18}</dd>
+                                            {/* <dd>₹{cartTotalAmount * 0.18}</dd> */}
                                         </div>
 
                                         {/* <div className="flex justify-between">
@@ -49,11 +52,11 @@ function Cart() {
 
                                         <div className="flex justify-between !text-base font-medium">
                                             <dt>Total</dt>
-                                            <dd>
+                                            {/* <dd>
                                                 ₹
                                                 {cartTotalAmount +
                                                     cartTotalAmount * 0.18}
-                                            </dd>
+                                            </dd> */}
                                         </div>
                                     </dl>
 
@@ -94,20 +97,20 @@ function Cart() {
                     </div>
                 </div>
             </section>
-         <Footer />
+            <Footer />
         </>
     )
 }
 
-function CartItemCard({ product, removeItemFromCart }) {
+function CartItemCard({ product }) {
     const { _id, name, image, price, description, category } = product
 
     function handleOnClick(id) {
-        removeItemFromCart(id)
-    }
+        // removeItemFromCart(id)
+    } 
     return (
         <li className="flex items-center gap-4">
-            <img src={image} alt="" className="size-16 rounded object-cover" />
+            <img src={`http://localhost:3000/images/${image}`} alt="" className="size-16 rounded object-cover" />
 
             <div>
                 <h3 className="text-sm text-gray-900">{name}</h3>
@@ -161,7 +164,5 @@ function CartItemCard({ product, removeItemFromCart }) {
         </li>
     )
 }
-
-function removeItemFromCartButton() {}
 
 export default Cart
