@@ -4,8 +4,10 @@ import {
   addItemToCart,
   removeItemFromCart,
 } from "../controllers/cartcontroller.js";
+import authMiddleware from "../middlewares/userAuth.js";
 
 const cartRouter = express.Router();
+cartRouter.use(authMiddleware)
 
 
 //API endpoints

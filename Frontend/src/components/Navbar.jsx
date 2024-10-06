@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 
 function Navbar() {
     return (
-        <header className="sticky top-0  z-[9999] h-[6rem] w-full border-solid bg-[#181818] px-2 font-Satohi font-[900]">
+        <header className="sticky top-0 z-[9999] h-[6rem] w-full border-solid bg-[#181818] px-2 font-Satohi font-[900]">
             <nav className="flex h-full w-full items-center justify-between px-2 sm:justify-between">
                 <Link to="/" className={'ml-2 w-[40%] sm:w-[33%]'}>
                     <BrandLogo className={'ml-2 w-[100%] justify-start'} />
@@ -60,11 +60,15 @@ function NavbarRightsideList() {
                 </li>
                 <li className="flex justify-center">
                     {isLoggedIn ? (
-                        <Link to="/signout">
+                        <Link to="/">
                             <Button
                                 className={
                                     'active:text-ogreen500 border-green-600 bg-green-600 text-white shadow-lg hover:bg-green-800 lg:px-[24px] lg:py-[8px]'
                                 }
+                                onClickHandler={() => {
+                                    localStorage.removeItem('key');
+                                    logout();
+                                }}
                             >
                                 Sign Out
                             </Button>
@@ -106,7 +110,10 @@ function SearchIcon() {
 }
 
 function CartIcon() {
-    const NumberOfItemsInCart = 0
+    const { itemsInCart } = useStoreContext()
+    const NumberOfItemsInCart = itemsInCart.reduce((acc, curr) => {
+      return acc +=    curr.quantity
+    },0)
     return (
         <>
             {NumberOfItemsInCart ? (
@@ -120,7 +127,6 @@ function CartIcon() {
             )}
             <Link to="/cart">
                 <span
-                    onClick={() => console.log(NumberOfItemsInCart)}
                     className="flex size-8 items-center justify-center rounded-md bg-white shadow-lg transition-all hover:-translate-y-[2px] sm:size-10"
                     title="View Cart"
                 >

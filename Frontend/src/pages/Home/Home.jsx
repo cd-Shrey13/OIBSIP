@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Hero from './Hero'
 import MenuOptions from './MenuOptions'
 import DishOptions from './DishOptions'

@@ -5,6 +5,7 @@ import foodRouter from "./routes/foodroute.js";
 import cartRouter from "./routes/cartroute.js";
 import userRouter from "./routes/userRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+import userValidatioRouter from "./routes/user-validation-route.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors());
 
 //API endpoints
 app.use(userRouter)
+app.use(userValidatioRouter)
 app.use("/food", foodRouter);
 app.use("/cart", cartRouter);
 app.use("/order",orderRouter)

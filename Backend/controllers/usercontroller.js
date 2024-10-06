@@ -1,5 +1,10 @@
 import UserModel from "../Models/user.model.js";
 import bcrypt from "bcrypt";
+import "dotenv/config";
+import jwt from "jsonwebtoken";
+
+export const JWT_SECRET =
+  "dffnvvnralmamclklkncnuhdfuvhdfhhidhcjifkjermnveworeiourfnvkejperkjfdgbnv";
 
 export async function signUpUser(req, res) {
   const { firstname, lastname, email, password } = req.body;
@@ -69,13 +74,23 @@ export async function signInUser(req, res) {
       });
       return;
     }
+    // console.log("Reached correct path!");
+
+    const payLoad = {
+      id: user._id,
+      email: user.email,
+      password: user.password,
+    };
+
+    const token = jwt.sign(payLoad, JWT_SECRET);
 
     res.status(200).json({
-      msg: "user created successfully!",
+      msg: "LoggedIn successfully!",
       success: true,
+      token: token,
     });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res.status(200).json({
       msg: "Some Error occured!",
       success: false,

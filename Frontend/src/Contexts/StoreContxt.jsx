@@ -1,13 +1,16 @@
 import { createContext, useContext, useState, useEffect, useMemo } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
+import { Navigate } from 'react-router-dom'
 
 const StoreContext = createContext(null)
 
 function StoreContextProvider({ children }) {
-    const [itemsQuantityInCart, setItemsQuantityInCart] = useState({})
+    const [itemsInCart, setItemsInCart] = useState([])
     const [foodList, setFoodList] = useState([])
+    const [cartTotalAmount, setCartTotalAmount] = useState(null)
 
+    //This function loads foodlist data from backend.
     async function getFoodList() {
         const response = await axios.get(
             'http://localhost:3000/food/listfooditems'
@@ -19,100 +22,93 @@ function StoreContextProvider({ children }) {
         setFoodList(response.data.data)
     }
 
-    async function getCartItemList() {
+    //This function gets cartdata from backend.
+    async function getAndSetCartItemList() {
+        const token = localStorage.getItem('key')
+        if (!token) {
+            Navigate('/login')
+            return
+        }
         await axios
             .post('http://localhost:3000/cart/getitems', {
-                id: '66ba19e0dd08fdace795d7f3',
+                headers: {
+                    Authorization: token,
+                    'Content-Type': 'application/json',
+                },
             })
             .then((response) => {
                 if (!response.data.success) {
                     toast.error('Some Error occured')
                     return
                 }
-                setItemsQuantityInCart(response.data.data)
-                // getCartItemList()
+                setItemsInCart(response.data.data.cartItemsArray)
+                setCartTotalAmount(response.data.data.cartTotalAmount)
             })
-
             .catch((error) => toast.error(error.message))
     }
 
+    //This function adds items to cart.
     function addItemToCart(itemId) {
+        const token = localStorage.getItem('key')
+
+        if (!token) {
+            alert('Please Login to continue!')
+            return
+        }
         axios
             .post(`http://localhost:3000/cart/additem`, {
-                id: '66ba19e0dd08fdace795d7f3',
-                productId: itemId,
+                headers: {
+                    Authorization: token,
+                    'Content-Type': 'application/json',
+                },
+                itemId: itemId,
             })
             .then((response) => {
                 if (!response.data.success) {
                     toast.error(response.data.msg)
                     return
                 }
-
-                toast(response.data.msg)
-
-                if (!itemsQuantityInCart[itemId]) {
-                    setItemsQuantityInCart((prev) => ({ ...prev, itemId: 1 }))
-                } else {
-                    setItemsQuantityInCart((prev) => ({
-                        ...prev,
-                        [itemId]: prev[itemId] + 1,
-                    }))
-                }
-                getCartItemList()
+                getAndSetCartItemList()
             })
     }
 
+    //This function removes items to cart.
     function removeItemFromCart(itemId) {
+        const token = localStorage.getItem('key')
+        if (!token) {
+            alert('Please Login to continue!')
+            return
+        }
         axios
             .post(`http://localhost:3000/cart/removeitem`, {
-                id: '66ba19e0dd08fdace795d7f3',
-                productId: itemId,
+                headers: {
+                    Authorization: token,
+                    'Content-Type': 'application/json',
+                    // Add any other custom headers here
+                },
+                itemId: itemId,
             })
             .then((response) => {
                 if (!response.data.success) {
                     toast.error(response.data.msg)
                     return
                 }
-
-                toast(response.data.msg)
-                setItemsQuantityInCart((prev) => ({
-                    ...prev,
-                    [itemId]: prev[itemId] - 1,
-                }))
+                getAndSetCartItemList()
             })
     }
 
     useEffect(() => {
         getFoodList()
-        getCartItemList()
     }, [])
-
-    const [cartItems,cartTotalAmount] = useMemo(() => {
-        const newFoodList = []
-        let cartTotalAmount = 0
-
-        for (const key in foodList) {
-            let itemId = foodList[key]._id
-            let quantity = itemsQuantityInCart[itemId]
-
-            if (itemsQuantityInCart.hasOwnProperty(itemId)) {
-                let obj = { ...foodList[key], quantity: quantity }
-                cartTotalAmount += obj.price * quantity
-                newFoodList.push(obj)
-            }
-        }
-
-        return [[...newFoodList],(cartTotalAmount)];
-    },[itemsQuantityInCart]);
 
     const contextValue = {
         foodList,
-        cartItems,
-        cartTotalAmount,
         setFoodList,
-        itemsQuantityInCart,
+        itemsInCart,
         addItemToCart,
         removeItemFromCart,
+        getAndSetCartItemList,
+        cartTotalAmount,
     }
 
     return (

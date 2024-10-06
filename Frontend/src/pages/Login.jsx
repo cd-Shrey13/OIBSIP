@@ -32,12 +32,9 @@ function Login() {
             ...prevData,
             password: value,
         }))
-
-        console.log(formData)
     }
 
     async function handleOnClick() {
-        console.log(formData)
         axios
             .post('http://localhost:3000/signin', formData)
             .then((response) => {
@@ -45,15 +42,16 @@ function Login() {
                     toast.error(response.data.msg)
                     return
                 }
+                localStorage.setItem("key", response.data.token)
                 navigate('/')
                 login()
             })
-            .catch((err) => console.log('err'))
+            .catch((err) => console.log(err))
     }
 
     return (
         <div className="absolute z-[999999] flex h-[100vh] w-[100vw] items-center justify-center bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <ToastContainer />
+            <ToastContainer />
             <div className="max-w-lgp-2 mx-auto">
                 <H1 className={'mb-[4rem] text-black'}>Get started today</H1>
 

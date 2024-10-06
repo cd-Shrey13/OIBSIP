@@ -45,7 +45,7 @@ function MenuSlider() {
 function SliderCard({ cardImage, cardImageName }) {
     return (
         <>
-            <div className="flex h-[11rem] flex-shrink-0 transform snap-start flex-col items-center justify-between rounded-xl bg-[#181818] text-white lg:bg-white lg:text-black p-2 shadow-lg transition-all duration-300 hover:-translate-y-2 lg:h-[17rem]">
+            <div className="flex h-[11rem] flex-shrink-0 transform snap-start flex-col items-center justify-between rounded-xl bg-[#181818] text-white lg:bg-white lg:text-black p-2 shadow-lg transition-all duration-300  lg:h-[17rem]">
                 <span className="">
                     <img
                         src={cardImage}

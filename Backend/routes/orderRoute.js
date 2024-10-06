@@ -1,13 +1,41 @@
 import express from "express";
 import "dotenv/config";
-import OrderModel from "../Models/order.model.js";
 import UserModel from "../Models/user.model.js";
 import Razorpay from "razorpay";
+import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../controllers/usercontroller.js";
+import authMiddleware from "../middlewares/userAuth.js";
 
 const orderRouter = express.Router();
+orderRouter.use(authMiddleware);
 
 async function placeOrder(req, res) {
-  const { userId, items, amount, address } = req.body;
+  const { amount, key } = req.body;
+
+  // const decodedUserData = jwt.verify(key, JWT_SECRET);
+  // const {  password, id } = decodedUserData;
+  // const userData = await UserModel.findById(id);
+
+  // if (!decodedUserData) {
+  //   res.status(401).json({
+  //     success: false,
+  //     msg: "Please login to place order!"
+  //   });
+  //   return;
+  // }
+
+  // console.log(password);
+  // const validPassword = password === userData.password;
+
+  //   console.log(validPassword);
+  // if (!validPassword) {
+  //   res.status(401).json({
+  //     success: false,
+  //     msg: "Authorization failed!",
+  //   });
+  //   return;
+  // }
+
   try {
     const razorpay = new Razorpay({
       key_id: "rzp_test_5NtTEmMrH0gT29",
