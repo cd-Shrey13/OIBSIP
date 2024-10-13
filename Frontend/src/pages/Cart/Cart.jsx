@@ -1,21 +1,19 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
-import Navbar from '../../components/Navbar'
+import React, { useCallback, useEffect } from 'react'
 import Footer from '../../components/Footer'
 import Button from '../../components/Button'
-import { useStoreContext } from '../../Contexts/StoreContxt'
+import { useStoreContext } from '../../Contexts/StoreContext'
 import { MinusIconSVG, PlusIconSVG } from '../../assets/svg/svg'
 import axios from 'axios'
 import H1 from '../../components/H1'
-import { toast } from 'react-toastify'
 
 function Cart() {
-    const { itemsInCart, getAndSetCartItemList, cartTotalAmount } = useStoreContext()
-
+    const { itemsInCart, getAndSetCartItemList, cartTotalAmount } =
+        useStoreContext()
 
     const handleCheckout = useCallback(
         async function displayRazorpay() {
             const token = localStorage.getItem('key')
-            if (!key) {
+            if (!token) {
                 alert('Please Login to place order')
                 return
             }
@@ -25,12 +23,10 @@ function Cart() {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'token': token
-                      },
-                    items: cartItems,
-                    amount: (100 * 0.18).toFixed(
-                        2
-                    ),
+                        Authorization: token,
+                    },
+                    items: itemsInCart,
+                    amount: cartTotalAmount,
                     address: 'test',
                 }
             )
@@ -49,13 +45,10 @@ function Cart() {
     )
 
     useEffect(() => {
-        getAndSetCartItemList()  
-    },[])
-    console.log(itemsInCart)
+        getAndSetCartItemList()
+    }, [])
     return (
         <>
-
-            <Navbar />
             <section className="flex w-full justify-center bg-[var(--color-creme)] py-2">
                 <div className="flex w-screen flex-col items-center justify-center gap-4 rounded-[12px] bg-slate-50 px-4 py-8 sm:px-6 sm:py-4 lg:max-w-fit lg:px-4">
                     <header className="text-center">
@@ -114,8 +107,7 @@ function Cart() {
 
 function CartItemCard({ item }) {
     const { id, name, image, category, price, quantity } = item
-    const { itemsInCart, addItemToCart, removeItemFromCart } =
-        useStoreContext()
+    const { addItemToCart, removeItemFromCart } = useStoreContext()
 
     return (
         <div className="flex w-full items-center gap-4 rounded-[12px] bg-slate-200 p-2">

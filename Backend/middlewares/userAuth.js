@@ -1,8 +1,10 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from "../controllers/usercontroller.js";
 
 const authMiddleware = (req, res, next) => {
   const  token  = req.body.headers.Authorization;
+
+  console.log(req.body)
   if (!token) {
     return res.status(403).json({
       success: false,
@@ -15,6 +17,7 @@ const authMiddleware = (req, res, next) => {
     req.user = decryptedUserData;
     next();
   } catch (error) {
+    console.log(error)
     res.status(400).json({
       success: false,
       msg: "Invalid token!",

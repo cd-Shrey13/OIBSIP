@@ -1,32 +1,24 @@
-import { createContext, useContext, useState, useEffect, useMemo } from 'react'
+import { createContext, useContext, useState } from 'react'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { Navigate } from 'react-router-dom'
 
 const StoreContext = createContext(null)
 
 function StoreContextProvider({ children }) {
     const [itemsInCart, setItemsInCart] = useState([])
-    const [foodList, setFoodList] = useState([])
-    const [cartTotalAmount, setCartTotalAmount] = useState(null)
-
-    //This function loads foodlist data from backend.
-    async function getFoodList() {
-        const response = await axios.get(
-            'http://localhost:3000/food/listfooditems'
-        )
-        if (!response.data.success) {
-            toast.error('Some Error occured')
-            return
-        }
-        setFoodList(response.data.data)
-    }
+    const [cartTotalAmount, setCartTotalAmount] = useState(0)
+    const [itemsQuantityInCart, setItemsQuantityInCart] = useState(0)
 
     //This function gets cartdata from backend.
     async function getAndSetCartItemList() {
         const token = localStorage.getItem('key')
         if (!token) {
-            Navigate('/login')
+            console.log("reached Here")
+            // Navigate('/login')
+            setItemsInCart([])
+            setItemsQuantityInCart(0)
+
             return
         }
         await axios
@@ -41,8 +33,15 @@ function StoreContextProvider({ children }) {
                     toast.error('Some Error occured')
                     return
                 }
-                setItemsInCart(response.data.data.cartItemsArray)
-                setCartTotalAmount(response.data.data.cartTotalAmount)
+
+                const cartItemsArray = response.data.data.cartItemsArray
+                const cartTotalAmount = response.data.data.cartTotalAmount
+                const numberOfItemsInCart =
+                    response.data.data.numberOfItemsInCart
+
+                setItemsInCart(cartItemsArray)
+                setCartTotalAmount(cartTotalAmount)
+                setItemsQuantityInCart((prev) => numberOfItemsInCart)
             })
             .catch((error) => toast.error(error.message))
     }
@@ -97,18 +96,13 @@ function StoreContextProvider({ children }) {
             })
     }
 
-    useEffect(() => {
-        getFoodList()
-    }, [])
-
     const contextValue = {
-        foodList,
-        setFoodList,
         itemsInCart,
         addItemToCart,
         removeItemFromCart,
         getAndSetCartItemList,
         cartTotalAmount,
+        itemsQuantityInCart,
     }
 
     return (

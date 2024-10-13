@@ -10,7 +10,7 @@ const orderRouter = express.Router();
 orderRouter.use(authMiddleware);
 
 async function placeOrder(req, res) {
-  const { amount, key } = req.body;
+  const { amount } = req.body;
 
   // const decodedUserData = jwt.verify(key, JWT_SECRET);
   // const {  password, id } = decodedUserData;

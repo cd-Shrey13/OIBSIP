@@ -1,9 +1,9 @@
 import Button from './Button'
 import BrandLogo from './BrandLogo'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../Contexts/context'
-import { useStoreContext } from '../Contexts/StoreContxt'
-import { useEffect } from 'react'
+import { useAuth } from '../Contexts/AuthContext'
+import { useStoreContext } from '../Contexts/StoreContext'
+import { useEffect, useState } from 'react'
 
 function Navbar() {
     return (
@@ -13,6 +13,7 @@ function Navbar() {
                     <BrandLogo className={'ml-2 w-[100%] justify-start'} />
                 </Link>
                 <NavbarMiddleList />
+
                 <NavbarRightsideList />
             </nav>
         </header>
@@ -43,7 +44,8 @@ function NavbarMiddleList() {
 }
 
 function NavbarRightsideList() {
-    const { isLoggedIn, login, logout } = useAuth()
+    const { isLoggedIn } = useAuth()
+    const { getAndSetCartItemList } = useStoreContext()
 
     return (
         <span className="flex h-full w-[60%] items-center justify-end sm:w-[33%]">
@@ -66,8 +68,12 @@ function NavbarRightsideList() {
                                     'active:text-ogreen500 border-green-600 bg-green-600 text-white shadow-lg hover:bg-green-800 lg:px-[24px] lg:py-[8px]'
                                 }
                                 onClickHandler={() => {
-                                    localStorage.removeItem('key');
-                                    logout();
+                                    const token = localStorage.getItem('key')
+
+                                    if (token) {
+                                        localStorage.removeItem('key')
+                                        getAndSetCartItemList()
+                                    }
                                 }}
                             >
                                 Sign Out
@@ -110,16 +116,14 @@ function SearchIcon() {
 }
 
 function CartIcon() {
-    const { itemsInCart } = useStoreContext()
-    const NumberOfItemsInCart = itemsInCart.reduce((acc, curr) => {
-      return acc +=    curr.quantity
-    },0)
+    const { itemsQuantityInCart } = useStoreContext()
+
     return (
         <>
-            {NumberOfItemsInCart ? (
+            {itemsQuantityInCart ? (
                 <span className="absolute right-[7.5rem] top-[20px] z-[9999999999] flex h-[18px] w-[18px] items-center justify-center rounded-full bg-red-600 lg:right-[8.7rem] lg:top-[20px]">
                     <p className="p-1 text-[.8rem] font-[900] text-white">
-                        {NumberOfItemsInCart}
+                        {itemsQuantityInCart}
                     </p>
                 </span>
             ) : (

@@ -1,5 +1,5 @@
 import { PlusIconSVG, MinusIconSVG } from '../assets/svg/svg'
-import { useStoreContext } from '../Contexts/StoreContxt'
+import { useStoreContext } from '../Contexts/StoreContext'
 
 
 export default function QuantitySetter({ itemId }) {

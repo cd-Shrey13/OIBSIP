@@ -19,6 +19,11 @@ async function getFoodListObject() {
   return foodListObject;
 }
 
+function getNumberOfItemsInCart(cartItemsArray) {
+  return cartItemsArray.reduce((acc, curr) => {
+    return (acc += curr.quantity);
+  }, 0);
+}
 export async function getCartItems(req, res) {
   try {
     const { id: userId } = req.user;
@@ -52,6 +57,9 @@ export async function getCartItems(req, res) {
       });
     }
 
+    const numberOfItemsInCart = getNumberOfItemsInCart(cartItemsArray)
+    console.log(numberOfItemsInCart)
+
     //send cartData as resonse
     res.status(200).json({
       success: true,
@@ -59,6 +67,7 @@ export async function getCartItems(req, res) {
       data: {
         cartItemsArray,
         cartTotalAmount,
+        numberOfItemsInCart
       },
     });
   } catch (error) {
@@ -132,9 +141,8 @@ export async function removeItemFromCart(req, res) {
       cartData[itemId] === 1
         ? delete cartData[itemId]
         : (cartData[itemId] -= 1);
-    }
-    else{
-      delete cartData[itemId]
+    } else {
+      delete cartData[itemId];
     }
 
     //update cartData in db

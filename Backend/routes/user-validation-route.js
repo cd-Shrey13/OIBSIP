@@ -6,7 +6,8 @@ import express from 'express'
 const userValidatioRouter = express.Router()
 
 const validateUser = (req, res) => {
-  const { token } = req.headers;
+  const  token  = req.body.headers.Authorization;
+  // console.log(req)
 
   if (!token) {
     return res.status(403).json({

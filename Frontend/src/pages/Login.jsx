@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Button from '../components/Button'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../Contexts/context'
 import H1 from '../components/H1'
 import { toast, ToastContainer } from 'react-toastify'
 
@@ -13,7 +12,6 @@ function Login() {
         password: '',
     })
 
-    const { isLoggedIn, login, logout } = useAuth()
 
     // Handle input changes
     const handleEmailChange = (event) => {
@@ -44,7 +42,6 @@ function Login() {
                 }
                 localStorage.setItem("key", response.data.token)
                 navigate('/')
-                login()
             })
             .catch((err) => console.log(err))
     }
