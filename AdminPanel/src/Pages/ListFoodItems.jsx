@@ -47,27 +47,8 @@ export default function ListFooditems({ className }) {
                         <h2 className="text-[2rem] font-[900] text-white">
                             All Food List
                         </h2>
-                        {/* <div className="hidden w-full border-2 border-slate-950">
-                            <ul className="flex w-full justify-between text-[1.3rem] font-[600]">
-                                <li className="w-[20%] p-2 text-center">
-                                    Image{' '}
-                                </li>
-                                <li className="w-[20%] p-2 text-center">
-                                    Name
-                                </li>
-                                <li className="w-[20%] p-2 text-center">
-                                    Category
-                                </li>
-                                <li className="w-[20%] p-2 text-center">
-                                    Price
-                                </li>
-                                <li className="w-[20%] p-2 text-center">
-                                    Action
-                                </li>
-                            </ul>
-                        </div> */}
                     </header>
-                    <div className="flex h-[65vh] w-full flex-col items-center justify-start gap-2 overflow-y-scroll rounded-lg bg-black p-2">
+                    <div className="flex h-[65vh] w-full flex-col items-center justify-start gap-2 overflow-y-scroll rounded-lg bg-black p-2 lg:grid lg:grid-cols-3">
                         {itemList.map((item, index) => (
                             <CartItemCard
                                 product={item}
@@ -85,7 +66,7 @@ export default function ListFooditems({ className }) {
 }
 
 function CartItemCard({ product, removeItemFromList }) {
-    const { _id, name, image, price, description, category } = product;
+    const { _id, name, image, price, category } = product;
 
     function handleOnClick(id) {
         removeItemFromList(id);

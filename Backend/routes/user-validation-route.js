@@ -1,7 +1,10 @@
 
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../controllers/usercontroller.js";
-import express from 'express'
+import express from 'express';
+import { configDotenv } from "dotenv";
+
+// Load environment variables from the default .env file
+configDotenv();
 
 const userValidatioRouter = express.Router()
 
@@ -17,7 +20,7 @@ const validateUser = (req, res) => {
   }
 
   try {
-    const decryptedUserData = jwt.verify(token, JWT_SECRET);
+    const decryptedUserData = jwt.verify(token, process.env.JWT_SECRET);
     
     if(decryptedUserData){
         res.status(200).json({

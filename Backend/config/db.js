@@ -1,10 +1,12 @@
 import "dotenv/config";
 import mongoose from "mongoose";
+import { configDotenv } from "dotenv";
+
+configDotenv();
 
 async function connectDatabase() {
   try {
-    const connectionString = process.env.DATABASE_SECRET;
-    await mongoose.connect("mongodb+srv://shreyprajapati13:0pYkP51wHt0oSIjc@cluster0.tjjfrmf.mongodb.net/");
+    await mongoose.connect(process.env.DATABASE_SECRET);
     console.log("DB connected!");
   } catch (error) {
     console.log(error.message);

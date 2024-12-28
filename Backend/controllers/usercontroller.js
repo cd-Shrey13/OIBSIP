@@ -1,10 +1,5 @@
 import UserModel from "../Models/user.model.js";
 import bcrypt from "bcrypt";
-import "dotenv/config";
-import jwt from "jsonwebtoken";
-
-export const JWT_SECRET =
-  "dffnvvnralmamclklkncnuhdfuvhdfhhidhcjifkjermnveworeiourfnvkejperkjfdgbnv";
 
 export async function signUpUser(req, res) {
   const { firstname, lastname, email, password } = req.body;

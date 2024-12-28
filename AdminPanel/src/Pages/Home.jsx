@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import ListFooditems from './ListFoodItems';
 import { MobileMenuProvider } from '../Context/Context';
 import Sidebar from '../components/Sidebar';
+import Orders from './Orders';
 
 export function Home() {
     return (
@@ -37,9 +38,7 @@ export function Home() {
                                 path="/ViewOrders"
                                 element={
                                     <Suspense fallback="Loading">
-                                        <AdminContent
-                                            className={'bg-red-900'}
-                                        />
+                                        <Orders />
                                     </Suspense>
                                 }
                             ></Route>

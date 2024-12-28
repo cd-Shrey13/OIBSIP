@@ -10,6 +10,12 @@ function Cart() {
     const { itemsInCart, getAndSetCartItemList, cartTotalAmount } =
         useStoreContext()
 
+    const itemsPreparedForCart = itemsInCart.reduce((acc, curr) => {
+        const { id: itemId, quantity } = curr
+        acc[itemId] = quantity
+        return acc
+    }, {})
+
     const handleCheckout = useCallback(
         async function displayRazorpay() {
             const token = localStorage.getItem('key')
@@ -25,11 +31,13 @@ function Cart() {
                         'Content-Type': 'application/json',
                         Authorization: token,
                     },
-                    items: itemsInCart,
+                    items: itemsPreparedForCart,
                     amount: cartTotalAmount,
                     address: 'test',
                 }
             )
+
+            console.log(response)
 
             if (!response) {
                 alert(response.data.msg)

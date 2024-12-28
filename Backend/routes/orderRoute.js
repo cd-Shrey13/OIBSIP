@@ -1,45 +1,22 @@
 import express from "express";
-import "dotenv/config";
-import UserModel from "../Models/user.model.js";
 import Razorpay from "razorpay";
-import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../controllers/usercontroller.js";
 import authMiddleware from "../middlewares/userAuth.js";
+import OrderModel from "../Models/order.model.js";
+import { configDotenv } from "dotenv";
+
+// Load environment variables from the default .env file
+configDotenv();
 
 const orderRouter = express.Router();
 orderRouter.use(authMiddleware);
 
 async function placeOrder(req, res) {
-  const { amount } = req.body;
-
-  // const decodedUserData = jwt.verify(key, JWT_SECRET);
-  // const {  password, id } = decodedUserData;
-  // const userData = await UserModel.findById(id);
-
-  // if (!decodedUserData) {
-  //   res.status(401).json({
-  //     success: false,
-  //     msg: "Please login to place order!"
-  //   });
-  //   return;
-  // }
-
-  // console.log(password);
-  // const validPassword = password === userData.password;
-
-  //   console.log(validPassword);
-  // if (!validPassword) {
-  //   res.status(401).json({
-  //     success: false,
-  //     msg: "Authorization failed!",
-  //   });
-  //   return;
-  // }
+  const { amount, items, address } = req.body;
 
   try {
     const razorpay = new Razorpay({
-      key_id: "rzp_test_5NtTEmMrH0gT29",
-      key_secret: "N0d20pS806Twd0stf3gp2Zq4",
+      key_id: `${process.env.PAYMENT_KEY_ID}`,
+      key_secret: `${process.env.PAYMENT_KEY_SECRET}`,
     });
 
     const Options = {
@@ -90,6 +67,15 @@ async function placeOrder(req, res) {
       },
     };
 
+    const orderDetails = {
+      userId: req.user.id,
+      items: items,
+      amount: amount,
+      address: address,
+    };
+
+    await OrderModel.create(orderDetails);
+
     res.status(200).json({
       success: true,
       msg: "Order created",
@@ -103,6 +89,23 @@ async function placeOrder(req, res) {
   }
 }
 
+const getOrderList = async (req, res) => {
+  try {
+    const orderList = await OrderModel.find({});
+
+    res.status(200).json({
+      success: true,
+      data: orderList,
+    });
+  } catch (error) {
+    res.status(200).json({
+      success: false,
+      msg: error,
+    });
+  }
+};
+
 orderRouter.post("/placeOrder", placeOrder);
+orderRouter.get("/getorders", getOrderList);
 
 export default orderRouter;

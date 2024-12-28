@@ -12,16 +12,22 @@ const app = express();
 //Connect database
 connectDatabase();
 
+const corsOptions = {
+  origin: "http://localhost:5173", // Replace with your frontend's origin
+  methods: ["GET", "POST"], // Allowed HTTP methods
+  credentials: true, // Enable cookies or authentication headers
+};
+
 //Middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 //API endpoints
-app.use(userRouter)
-app.use(userValidatioRouter)
+app.use(userRouter);
+app.use(userValidatioRouter);
 app.use("/food", foodRouter);
 app.use("/cart", cartRouter);
-app.use("/order",orderRouter)
+app.use("/order", orderRouter);
 app.use("/images", express.static("uploads"));
 
 app.listen(3000);
